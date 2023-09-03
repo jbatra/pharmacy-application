@@ -1,0 +1,15 @@
+@import '../../assets/colors.scss';
+
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  body {
+    background: $primary-color;
+  }
+  .container {
+    margin: 3px 40px;
+  }
