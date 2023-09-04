@@ -15,8 +15,8 @@ const PharmacyCard = () => {
 
   return (    
   <div className='.card-top'>
-    <Card sx={{ minWidth: 275, color: "#000080", background:"#3399ff" }} >
-      <CardHeader title={selectedPharmacy.name} sx={{ fontFamily: 'Inter' }}/>    
+    <Card sx={{ minWidth: 275, color: "#000080", background:"#aedaff" }} >
+      <CardHeader title={selectedPharmacy.name} sx={{ fontFamily: 'sans-serif;' }}/>    
       <CardContent>
         <Typography variant="subtitle1" gutterBottom>
         {selectedPharmacy.address}
@@ -24,7 +24,7 @@ const PharmacyCard = () => {
         <Typography variant="subtitle1" component="div">
         {selectedPharmacy.city}, {selectedPharmacy.state} - {selectedPharmacy.zip}
         </Typography>
-        <Typography variant="h6"> Rx Filled MTD : {selectedPharmacy.filledPrescriptionMtd} 
+        <Typography variant="h6"> Rx Filled MTD : {selectedPharmacy.rxFilledMtd} 
         </Typography>
       </CardContent>
     </Card>

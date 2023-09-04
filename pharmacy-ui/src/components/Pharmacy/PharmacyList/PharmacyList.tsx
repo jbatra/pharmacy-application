@@ -23,12 +23,12 @@ function PharmacyList () {
   });
 console.log(pharmacyList.length);
 const columns: GridColDef[] = [
-    { field: 'name',    headerName: 'Name',    width: 125, editable: true, flex: 1},
+    { field: 'name', headerClassName:'header-bold',   headerName: 'Name',    width: 125, editable: true, flex: 1},
     { field: 'address', headerName: 'Address', width: 125, editable: true, flex: 1 },
     { field: 'city',    headerName: 'City',    width: 75, editable: true, flex: 0.75 },
     { field: 'state',   headerName: 'State',   width: 70,  editable: true, flex: 0.5 },
     { field: 'zip',     headerName: 'Zip',  width: 70, editable: true, flex: 0.75, },
-    { field: 'filledPrescriptionMtd', headerName: 'Rx Filled', type: 'number', width: 80, editable: true, flex: 0.5 }
+    { field: 'rxFilledMtd', headerName: 'Rx Filled', type: 'number', width: 80, editable: true, flex: 0.5 }
 ];
 
     const handleProcessRowUpdate = (updatedPharmacy: Pharmacy, originalPharmacy: Pharmacy) => {
@@ -55,7 +55,8 @@ const columns: GridColDef[] = [
 
   return (         
     <div>
-        {loading ? <h2>Loading...</h2>: error ? <h2>{error}</h2>:
+      
+        {loading ? <div>Loading...</div>: error ? <h2>{error}</h2>:
                     
             <div style={{ width: '100%'}}>
               <DataGrid                
@@ -77,7 +78,7 @@ const columns: GridColDef[] = [
                   m: 2,                        
                   border: 3,
                   borderColor: 'primary',
-                  background:'#3399ff'
+                  background:'#aedaff'
                   
                   }}
               />            

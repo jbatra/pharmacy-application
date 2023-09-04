@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Pharmacy } from "../stateStore/Pharmacy/Models/Pharmacy";
-import { PaginationModel } from "../components/Pharmacy/PharmacyList/PharmacyList"
+import { PaginationModel } from "../stateStore/PaginationModel"
 
-export type KnownError = {
-  message: string;
-  description: string;
-  code: number | undefined;
-};
+// export type KnownError = {
+//   message: string;
+//   description: string;
+//   code: number | undefined;
+// };
 
 // export const fetchPharmacyList =  createAsyncThunk(
 //   'fetchPharmacyList',

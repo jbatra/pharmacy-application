@@ -7,7 +7,7 @@ export interface Pharmacy {
     city?: string;
     state?: string;
     zip?: string;
-    filledPrescriptionMtd?: number;
+    rxFilledMtd?: number;
     createdDate: Date;
     updatedDate?: Date;
 }
