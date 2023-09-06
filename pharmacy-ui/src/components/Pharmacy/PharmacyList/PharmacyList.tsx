@@ -72,8 +72,7 @@ const columns: GridColDef[] = [
                 hideFooterSelectedRowCount={true}
                 paginationModel={paginationModel}                               
                 onPaginationModelChange={handlePaginationModelChange}                
-                pageSizeOptions={[4, 8, 10]}       
-                //onProcessRowUpdateError={onProcessRowUpdateError}
+                pageSizeOptions={[5, 10]}       
                 sx={{                                            
                   m: 2,                        
                   border: 3,
