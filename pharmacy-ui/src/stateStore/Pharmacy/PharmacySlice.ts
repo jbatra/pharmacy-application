@@ -33,9 +33,6 @@ import { PharmacyState } from "./Models/PharmacyState"
       {
         state.selectedPharmacy = action.payload;
       });
-      builder.addCase(updatePharmacy.pending, (state) => {
-        //state.loading = true;
-      });
       builder.addCase(updatePharmacy.fulfilled, (state, action) => {
         state.loading = false;
         state.pharmacyList = state.pharmacyList.map((pharmacy) => 
