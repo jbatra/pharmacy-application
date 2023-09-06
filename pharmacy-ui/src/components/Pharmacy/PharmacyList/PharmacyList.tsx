@@ -10,7 +10,7 @@ import './PharmacyList.scss';
 
 
 function PharmacyList () {
-  const [paginationModel, setPaginationModel] = useState<PaginationModel>({page:0,pageSize:4})
+  const [paginationModel, setPaginationModel] = useState<PaginationModel>({page:0,pageSize:5})
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -72,7 +72,7 @@ const columns: GridColDef[] = [
                 hideFooterSelectedRowCount={true}
                 paginationModel={paginationModel}                               
                 onPaginationModelChange={handlePaginationModelChange}                
-                pageSizeOptions={[5, 10]}       
+                pageSizeOptions={[5, 10, 15]}  
                 sx={{                                            
                   m: 2,                        
                   border: 3,
