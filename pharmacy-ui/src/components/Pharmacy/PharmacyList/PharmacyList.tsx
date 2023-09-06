@@ -23,12 +23,12 @@ function PharmacyList () {
   });
 console.log(pharmacyList.length);
 const columns: GridColDef[] = [
-    { field: 'name', headerClassName:'header-bold',   headerName: 'Name',    width: 125, editable: true, flex: 1},
-    { field: 'address', headerName: 'Address', width: 125, editable: true, flex: 1 },
-    { field: 'city',    headerName: 'City',    width: 75, editable: true, flex: 0.75 },
-    { field: 'state',   headerName: 'State',   width: 70,  editable: true, flex: 0.5 },
-    { field: 'zip',     headerName: 'Zip',  width: 70, editable: true, flex: 0.75, },
-    { field: 'rxFilledMtd', headerName: 'Rx Filled', type: 'number', width: 80, editable: true, flex: 0.5 }
+    { field: 'name', headerClassName:'header-bold', renderHeader: () => (<strong>{'Name'}</strong>),    width: 125, editable: true, flex: 1},
+    { field: 'address',renderHeader: () => (<strong>{'Address'}</strong>), width: 125, editable: true, flex: 1 },
+    { field: 'city',renderHeader: () => (<strong>{'City'}</strong>), width: 75, editable: true, flex: 0.75 },
+    { field: 'state',renderHeader: () => (<strong>{'State'}</strong>), width: 70,  editable: true, flex: 0.5 },
+    { field: 'zip', renderHeader: () => (<strong>{'Zip'}</strong>), width: 70, editable: true, flex: 0.75, },
+    { field: 'rxFilledMtd',renderHeader: () => (<strong>{'Rx Filled'}</strong>), type: 'number', width: 80, editable: true, flex: 0.5 }
 ];
 
     const handleProcessRowUpdate = (updatedPharmacy: Pharmacy, originalPharmacy: Pharmacy) => {
