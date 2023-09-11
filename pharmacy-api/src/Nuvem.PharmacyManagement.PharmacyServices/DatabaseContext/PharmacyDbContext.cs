@@ -21,11 +21,12 @@ public partial class PharmacyDbContext : DbContext, IPharmacyDbContext
     public DbContext Instance => this;
 
     public string? connString { get; set;}
-
+   
     public Task<int> SaveChangesAsync()
     {
         return base.SaveChangesAsync();
     }
+   
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if(!optionsBuilder.IsConfigured)
@@ -39,6 +40,8 @@ public partial class PharmacyDbContext : DbContext, IPharmacyDbContext
         {
             entity.HasKey(e => e.PharmacyId).HasName("PK_dbo.Pharmacy");
         });
+        modelBuilder.Entity<PharmacistMTDReport>(entity => 
+        entity.HasNoKey());  
 
         OnModelCreatingPartial(modelBuilder);
     }

@@ -30,12 +30,13 @@ builder.Services.AddSingleton(appConfig);
 var allowUrls = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 builder.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy(builder =>
+                options.AddDefaultPolicy(policy =>
                 {
-
-                    _ = builder
-                        .WithOrigins(allowUrls)
+                    if(allowUrls is not null)
+                    {
+                    policy.WithOrigins(allowUrls)
                         .WithMethods("GET", "POST", "PUT");
+                    }
                 });
             });
 

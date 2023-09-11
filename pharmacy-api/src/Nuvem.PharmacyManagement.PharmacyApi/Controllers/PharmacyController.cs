@@ -4,6 +4,7 @@ using System.Net;
 using Nuvem.PharmacyManagement.PharmacyServices.Models;
 using Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext.EFEntities;
 using Nuvem.PharmacyManagement.PharmacyServices.Exceptions;
+using Nuvem.PharmacyManagement.PharmacyServices;
 
 
 namespace Nuvem.PharmacyManagement.PharmacyApi.Controllers;
@@ -43,14 +44,33 @@ namespace Nuvem.PharmacyManagement.PharmacyApi.Controllers;
             }
         }
 
+        [HttpPost("{id}/Pharmacist")]
+        [SwaggerOperation("Get pharmacist for given pharmacy id")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.NoContent)]
+        // public async Task<ActionResult> PaginatedPharmacyList([FromBody]ParameterCollection pageParams)
+        // {
+        public async Task<ActionResult> GetPharmacistListByPharmacyId(int id,[FromBody]ParameterCollection pageParams)
+        {
+            _logger.LogInformation("In Get pharmacist List For given Pharmacy Id action method!");
+            
+            var PharmacistList = await _pharmacyService.GetPharmacistsByPharmacyIdAsync(id, pageParams);
+            if(PharmacistList is null)
+            {
+                return NoContent();
+            } 
+            return Ok(PharmacistList);
+            
+        }
+
         [HttpPost("")]        
         [SwaggerOperation("Get PharmacyList by pagesize")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult> PaginatedPharmacyList([FromBody]PaginationParameters pageParams)
+        public async Task<ActionResult> PaginatedPharmacyList([FromBody]ParameterCollection pageParams)
         {
-            DataGridResult? result = await _pharmacyService.PaginatedPharmacyListAsync(pageParams);
-            if(result is null || result.PharmacyList is null)
+            PharmacyDisplayResult<Pharmacy>? result = await _pharmacyService.PaginatedPharmacyListAsync(pageParams);
+            if(result is null || result.List is null)
             {
                 throw new NotFoundException("Pharmacy list not found!");                
             }
@@ -69,16 +89,17 @@ namespace Nuvem.PharmacyManagement.PharmacyApi.Controllers;
         [SwaggerResponse((int)HttpStatusCode.BadRequest)]
         [SwaggerResponse((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult> UpdatePharmacyById([FromBody]Pharmacy pharmacy)
-        {
+        {   
+            if(!ModelState.IsValid)
+            {
+                     var modelStateErrors = string.Join(" | ", ModelState.Values
+                                                .SelectMany(v => v.Errors)
+                                                .Select(e => e.ErrorMessage));
+                     throw new BadRequestException(modelStateErrors);                
+            }
             if (pharmacy.PharmacyId < 1) 
             {
                throw new KeyNotFoundException($"Invalid pharmacy id: {pharmacy.PharmacyId}.");
-            }
-            
-            if(!ModelState.IsValid)
-            {
-               var modelStateErrors = ModelState.Keys.SelectMany(key => ModelState[key].Errors).ToString();
-               throw new BadRequestException(modelStateErrors);
             }
             var updatedPharmacy = await _pharmacyService.UpdatePharmacyAsync(pharmacy);
             if(updatedPharmacy is null)
@@ -86,5 +107,5 @@ namespace Nuvem.PharmacyManagement.PharmacyApi.Controllers;
                 throw new NotFoundException("Pharmacy not found!");
             }
             return Ok(updatedPharmacy); 
-        }            
+        }
     }

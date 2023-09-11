@@ -1,7 +1,7 @@
 
 namespace Nuvem.PharmacyManagement.PharmacyServices.Models;
 
-public class PaginationParameters
+public class ParameterCollection
 {
     public int Page { get; set; }
     public int PageSize { get; set; }

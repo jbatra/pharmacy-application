@@ -1,18 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Nuvem.PharmacyManagement.PharmacyServices;
 using Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext;
 using Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext.EFEntities;
 using Nuvem.PharmacyManagement.PharmacyServices.Models;
 
-public interface IPharmacyService
-{
-    Task<List<Pharmacy>> GetAllPharmaciesAsync();
-    Task<Pharmacy?> GetPharmacyByIdAsync(int id);
-    Task<Pharmacy?> UpdatePharmacyAsync(Pharmacy pharmacy);
-    Task<DataGridResult?> PaginatedPharmacyListAsync(PaginationParameters param);
-  
-}
+namespace Nuvem.PharmacyManagement.PharmacyServices;
+// public interface IPharmacyService
+// {
+//     Task<List<Pharmacy>> GetAllPharmaciesAsync();
+//     Task<Pharmacy?> GetPharmacyByIdAsync(int id);
+//     Task<Pharmacy?> UpdatePharmacyAsync(Pharmacy pharmacy);
+//     Task<PharmacyDisplayResult<Pharmacy>?> PaginatedPharmacyListAsync(ParameterCollection param);
+//     Task<PharmacistDisplayResult<PharmacistMTDReport>?> GetPharmacistsByPharmacyIdAsync(int pharmacyId,ParameterCollection parameters);
+// }
 public class PharmacyService : IPharmacyService
 {
     private readonly IPharmacyDbContext _dbContext;
@@ -25,8 +25,27 @@ public class PharmacyService : IPharmacyService
         _dbContext.connString = _appConfig.EFConnectionString;
         _logger = logger;
     }
+
+    public async Task<PharmacistDisplayResult<PharmacistMTDReport>?> GetPharmacistsByPharmacyIdAsync(int pharmacyId,ParameterCollection parameters)
+    {
+        if(parameters.PageSize == 0) parameters.PageSize = 5;
+        PharmacistDisplayResult<PharmacistMTDReport> result = new();
+        var pharmacistReport =  await _dbContext.sp_PharmacistMTDReport(pharmacyId);
+
+        result.TotalCount = pharmacistReport.ToList().Count;
+        int skip = parameters.Page * parameters.PageSize;
+        var canPage = skip < pharmacistReport.ToList().Count;
+        if(!canPage) return null;
+        result.List = pharmacistReport.Select(p=> p)
+                        .Skip(skip)
+                        .Take(parameters.PageSize)
+                        .ToList();
+
+        return result;
+    }
     public async Task<List<Pharmacy>> GetAllPharmaciesAsync()
     {
+        //var result = _dbContext.sp_PharmacistMTDReport();        
         return await Task.FromResult( _dbContext.Pharmacy.ToList());
     }
 
@@ -57,15 +76,16 @@ public class PharmacyService : IPharmacyService
             return existingPharmacy; 
     }   
 
-    public async Task<DataGridResult?> PaginatedPharmacyListAsync(PaginationParameters parameters)
+    public async Task<PharmacyDisplayResult<Pharmacy>?> PaginatedPharmacyListAsync(ParameterCollection parameters)
     {
-        DataGridResult result = new();
+        if(parameters.PageSize == 0) parameters.PageSize = 5;
+        PharmacyDisplayResult<Pharmacy> result = new();
         List<Pharmacy> pharmacyList = await GetAllPharmaciesAsync();
         result.TotalCount = pharmacyList.Count;
         int skip = parameters.Page * parameters.PageSize;
         var canPage = skip < pharmacyList.Count;
         if(!canPage) return null;
-        result.PharmacyList = pharmacyList.Select(p=> p)
+        result.List = pharmacyList.Select(p=> p)
                         .Skip(skip)
                         .Take(parameters.PageSize)
                         .ToList();
