@@ -31,7 +31,7 @@ namespace Nuvem.PharmacyManagement.PharmacyApi.Controllers;
             _logger.LogInformation("In GetPharmacyList action method!");
             if(id is null)
             {
-                return Ok(await _pharmacyService.GetAllPharmaciesAsync());
+                return Ok(await _pharmacyService.GetPharmacieListAsync());
             }
             else
             {
@@ -48,13 +48,13 @@ namespace Nuvem.PharmacyManagement.PharmacyApi.Controllers;
         [SwaggerOperation("Get pharmacist for given pharmacy id")]
         [SwaggerResponse((int)HttpStatusCode.OK)]
         [SwaggerResponse((int)HttpStatusCode.NoContent)]
-        // public async Task<ActionResult> PaginatedPharmacyList([FromBody]ParameterCollection pageParams)
-        // {
-        public async Task<ActionResult> GetPharmacistListByPharmacyId(int id,[FromBody]ParameterCollection pageParams)
+    // public async Task<ActionResult> PaginatedPharmacyList([FromBody]ParameterCollection pageParams)
+    // {
+    public async Task<ActionResult> GetPharmacistListByPharmacyId(int id, [FromBody] ParameterCollection pageParams)
         {
             _logger.LogInformation("In Get pharmacist List For given Pharmacy Id action method!");
             
-            var PharmacistList = await _pharmacyService.GetPharmacistsByPharmacyIdAsync(id, pageParams);
+            var PharmacistList = await _pharmacyService.GetPharmacistListByPharmacyIdAsync(id, pageParams);
             if(PharmacistList is null)
             {
                 return NoContent();

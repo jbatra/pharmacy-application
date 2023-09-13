@@ -1,13 +1,13 @@
 
-
+namespace Nuvem.PharmacyManagement.PharmacyServices.Models;
 public class PharmacistMTDReport
-{    
-    public string? Pharmacist { get; set; }
+{   
     public int PharmacyId {get; set;}
     public string? Pharmacy { get; set; }
-    public string? PrimaryDrug { get; set; }
-    public int PrimaryUnitCount { get; set; }
-    public decimal PrimarySales { get; set; }
-    public int NonPrimaryUnitCount { get; set; }
-    public decimal OtherSales { get; set; }
+
+    public int PharmacistId {get; set;}
+    public string? Pharmacist { get; set; }
+    public string? DrugName { get; set; }
+    public int UnitCount { get; set; }
+    public decimal SaleAmount { get; set; }
 }

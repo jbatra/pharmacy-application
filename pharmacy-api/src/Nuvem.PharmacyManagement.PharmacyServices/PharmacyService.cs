@@ -26,33 +26,34 @@ public class PharmacyService : IPharmacyService
         _logger = logger;
     }
 
-    public async Task<PharmacistDisplayResult<PharmacistMTDReport>?> GetPharmacistsByPharmacyIdAsync(int pharmacyId,ParameterCollection parameters)
+    public async Task<PharmacistDisplayResult<PharmacistMTDReport>?> GetPharmacistListByPharmacyIdAsync(int pharmacyId,ParameterCollection parameters)
     {
         if(parameters.PageSize == 0) parameters.PageSize = 5;
         PharmacistDisplayResult<PharmacistMTDReport> result = new();
-        var pharmacistReport =  await _dbContext.sp_PharmacistMTDReport(pharmacyId);
+        var pharmacistReport =  await _dbContext.sp_PharmacistDrugMTDReport(pharmacyId);
 
+        if(pharmacistReport is not null)
+        {
         result.TotalCount = pharmacistReport.ToList().Count;
         int skip = parameters.Page * parameters.PageSize;
         var canPage = skip < pharmacistReport.ToList().Count;
         if(!canPage) return null;
-        result.List = pharmacistReport.Select(p=> p)
+        result.List = (IEnumerable<PharmacistMTDReport>?)pharmacistReport.Select(p=> p)
                         .Skip(skip)
-                        .Take(parameters.PageSize)
-                        .ToList();
+                        .Take(parameters.PageSize);
+        }
 
         return result;
     }
-    public async Task<List<Pharmacy>> GetAllPharmaciesAsync()
-    {
-        //var result = _dbContext.sp_PharmacistMTDReport();        
+    public async Task<List<Pharmacy>> GetPharmacieListAsync()
+    {      
         return await Task.FromResult( _dbContext.Pharmacy.ToList());
     }
 
     public async Task<Pharmacy?> GetPharmacyByIdAsync(int id)
     {
         return await _dbContext.Pharmacy.FirstOrDefaultAsync(x => x.PharmacyId == id);
-        }
+    }
 
     public async Task<Pharmacy?> UpdatePharmacyAsync(Pharmacy pharmacy)
     {
@@ -80,7 +81,7 @@ public class PharmacyService : IPharmacyService
     {
         if(parameters.PageSize == 0) parameters.PageSize = 5;
         PharmacyDisplayResult<Pharmacy> result = new();
-        List<Pharmacy> pharmacyList = await GetAllPharmaciesAsync();
+        List<Pharmacy> pharmacyList = await GetPharmacieListAsync();
         result.TotalCount = pharmacyList.Count;
         int skip = parameters.Page * parameters.PageSize;
         var canPage = skip < pharmacyList.Count;

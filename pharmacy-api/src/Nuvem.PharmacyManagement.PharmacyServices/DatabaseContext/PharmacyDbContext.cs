@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext.EFEntities;
+using Nuvem.PharmacyManagement.PharmacyServices.Models;
 
 namespace Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext;
 
