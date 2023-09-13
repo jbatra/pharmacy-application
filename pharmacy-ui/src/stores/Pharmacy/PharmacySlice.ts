@@ -1,15 +1,19 @@
 import {  createAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { fetchPharmacyList, updatePharmacy } from "../../services/pharmacyService";
-import { Pharmacy } from "./Models/Pharmacy";
-import { PharmacyState } from "./Models/PharmacyState"
+import { fetchPharmacistReport, fetchPharmacyList, updatePharmacy } from "../../services/pharmacyService";
+import { Pharmacy } from "./Pharmacy";
+import { PharmacyState } from "./PharmacyState"
 
   const initialState: PharmacyState = {
     loading: false,
     pharmacyList: [],
     totalCount: 0,
     error: undefined,
-    selectedPharmacy: {} as Pharmacy
+    selectedPharmacy: {} as Pharmacy,
+    pharmacistloading: false,
+    pharmacistList: [],
+    pharmacistCount: 0,
+    pharmacistError: undefined
   }
   
   const pharmacySlice = createSlice({
@@ -21,7 +25,7 @@ import { PharmacyState } from "./Models/PharmacyState"
       });
       builder.addCase(fetchPharmacyList.fulfilled, (state, action) => {
         state.loading = false;
-        state.pharmacyList = action.payload.pharmacyList;      
+        state.pharmacyList = action.payload.list;      
         state.totalCount = action.payload.totalCount;  
       });
       builder.addCase(fetchPharmacyList.rejected, (state, action) => {
@@ -43,9 +47,22 @@ import { PharmacyState } from "./Models/PharmacyState"
         state.selectedPharmacy = action.payload;
       });
       builder.addCase(updatePharmacy.rejected, (state, action) => {
-        //state.loading = false;        
         state.error = action.error.message;
-      });     
+      }); 
+      builder.addCase(fetchPharmacistReport.pending, (state) => {
+        state.pharmacistloading = true;
+      });
+      builder.addCase(fetchPharmacistReport.fulfilled, (state, action) => {
+       console.log(action.payload.totalCount);
+       state.pharmacistloading = false;
+        state.pharmacistList = action.payload.list;      
+        state.pharmacistCount = action.payload.totalCount;          
+      });
+      builder.addCase(fetchPharmacistReport.rejected, (state, action) => {
+        state.pharmacistloading = false;
+        state.pharmacistList = [];
+        state.pharmacistError = action.error.message;
+      });    
     },
     reducers: {}
   })

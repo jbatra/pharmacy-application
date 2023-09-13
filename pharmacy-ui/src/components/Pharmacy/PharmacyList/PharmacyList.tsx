@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../stateStore/hooks";
-import {  pharmacySelection } from "../../../stateStore/Pharmacy/PharmacySlice";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import {  pharmacySelection } from "../../../stores/Pharmacy/PharmacySlice";
 import { DataGrid, GridColDef,GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid';
-import { Pharmacy } from "../../../stateStore/Pharmacy/Models/Pharmacy";
-import { fetchPharmacyList, updatePharmacy } from "../../../services/pharmacyService";
+import { Pharmacy } from "../../../stores/Pharmacy/Pharmacy";
+import {  fetchPharmacyList, updatePharmacy } from "../../../services/pharmacyService";
 import _ from 'lodash';
-import { PaginationModel } from "../../../stateStore/PaginationModel";
+import { LinearProgress } from '@mui/material';
+import { PaginationModel } from "../../../stores/PaginationModel";
 import './PharmacyList.scss';
 
 
@@ -21,9 +22,9 @@ function PharmacyList () {
   const { pharmacyList, loading, error, totalCount} = useAppSelector((state) => {
     return state.pharmacyReducer;
   });
-console.log(pharmacyList.length);
+
 const columns: GridColDef[] = [
-    { field: 'name', headerClassName:'header-bold', renderHeader: () => (<strong>{'Name'}</strong>),    width: 125, editable: true, flex: 1},
+    { field: 'name', renderHeader: () => (<strong>{'Name'}</strong>),    width: 125, editable: true, flex: 1},
     { field: 'address',renderHeader: () => (<strong>{'Address'}</strong>), width: 125, editable: true, flex: 1 },
     { field: 'city',renderHeader: () => (<strong>{'City'}</strong>), width: 75, editable: true, flex: 0.75 },
     { field: 'state',renderHeader: () => (<strong>{'State'}</strong>), width: 70,  editable: true, flex: 0.5 },
@@ -40,7 +41,7 @@ const columns: GridColDef[] = [
 
     const handlePharmacySelectionChange = (selectedPharmacy: GridRowSelectionModel) => {
       const pharmacy = pharmacyList.find(pharmacy => pharmacy.pharmacyId === selectedPharmacy[0]) as Pharmacy;
-          dispatch(pharmacySelection(pharmacy)); 
+          dispatch(pharmacySelection(pharmacy));           
      }
 
      const handlePaginationModelChange = (changePageModel: GridPaginationModel) => {        
@@ -48,15 +49,16 @@ const columns: GridColDef[] = [
       {
         changePageModel.page = 0;
       }
+
       dispatch(pharmacySelection({} as Pharmacy)); 
-      setPaginationModel(changePageModel);
- 
+      setPaginationModel(changePageModel); 
+      
   };
 
   return (         
-    <div>
+    <div> 
       
-        {loading ? <div>Loading...</div>: error ? <h2>{error}</h2>:
+        {loading ? <div style={{gridArea: 'pharmacy'}}><LinearProgress /></div>: error ? <h2>{error}</h2>:
                     
             <div style={{ width: '100%'}}>
               <DataGrid                
@@ -67,6 +69,8 @@ const columns: GridColDef[] = [
                 processRowUpdate={handleProcessRowUpdate}
                 onRowSelectionModelChange={handlePharmacySelectionChange}
                 rowCount={totalCount} 
+                rowHeight={30}    
+                columnHeaderHeight={40}  
                 pagination
                 paginationMode="server"
                 hideFooterSelectedRowCount={true}
@@ -89,3 +93,4 @@ const columns: GridColDef[] = [
 }
 
 export default PharmacyList;
+

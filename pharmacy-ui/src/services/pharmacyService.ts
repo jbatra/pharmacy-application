@@ -1,29 +1,35 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Pharmacy } from "../stateStore/Pharmacy/Models/Pharmacy";
-import { PaginationModel } from "../stateStore/PaginationModel"
+import { Pharmacy } from "../stores/Pharmacy/Pharmacy";
+import { PaginationModel } from "../stores/PaginationModel"
 
-// export type KnownError = {
-//   message: string;
-//   description: string;
-//   code: number | undefined;
-// };
 
-// export const fetchPharmacyList =  createAsyncThunk(
-//   'fetchPharmacyList',
-//   async (_, {rejectWithValue}) => {
-//       try {
-//         const response = await axios.get('/api/pharmacy')
-//           return response.data;
-//       } 
-//       catch (err) {   
-//         const hasErrResponse = (err as { response: { [key: string]: string } }).response;
-//         if (!hasErrResponse) {
-//           throw err;
-//         }
-//         return rejectWithValue(hasErrResponse);
-//       }
-//   })
+export type pharma = {
+  id: number,
+  pagingParams: PaginationModel
+}
+
+export const fetchPharmacistReport =  createAsyncThunk(
+  'fetchPharmacistReport',
+  async (params: pharma, {rejectWithValue}) => {
+    try {    
+      //console.log(pagingParams);
+      const response = await axios({
+        method: 'POST',
+        url: `/api/pharmacy/${params.id}/Pharmacist`,
+        headers: {"Content-Type": "application/json"}, 
+        data: JSON.stringify(params.pagingParams)  
+      });
+      return response.data;
+  } 
+  catch (err) {   
+    const hasErrResponse = (err as { response: { [key: string]: string } }).response;
+    if (!hasErrResponse) {
+      throw err;
+    }
+    return rejectWithValue(hasErrResponse);
+  }
+  })
 
   export const fetchPharmacyList =  createAsyncThunk(
     'fetchPharmacyList',

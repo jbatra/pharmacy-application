@@ -1,16 +1,17 @@
 import Header from '../components/common/Header/Header';
 import Footer from '../components/common/Footer/Footer';
-import Home from '../components/Home/Home';
-import "../assets/colors.scss";
+import './Layout.scss';
 
-const layout = () => {
+
+const Layout = ({someComponent}: {someComponent: React.ReactNode}) =>  //(props: <Home/> | <PageNotFound/> 
+{
   return (
-    <div>
-        <Header/>   
-          <div className='container'><Home/></div>               
+    <div className='layout'>
+        <Header/>
+          <div className='container'>{someComponent}</div>
         <Footer/>
     </div>
   )
 }
 
-export default layout
+export default Layout

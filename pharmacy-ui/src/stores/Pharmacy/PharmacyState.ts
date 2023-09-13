@@ -1,4 +1,5 @@
 import { Pharmacy } from './Pharmacy';
+import { Pharmacist } from './Pharmacist';
 
 export interface PharmacyState {
     loading: boolean;
@@ -6,4 +7,8 @@ export interface PharmacyState {
     totalCount: number;
     error: string | undefined;
     selectedPharmacy: Pharmacy;
+    pharmacistloading: boolean;
+    pharmacistList: Array<Pharmacist>
+    pharmacistCount: number;
+    pharmacistError: string | undefined;
   }
