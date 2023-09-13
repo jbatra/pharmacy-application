@@ -1,16 +1,16 @@
+
+
 export interface Pharmacy {
     pharmacyId: number;
     name: string;
+    address?: string; 
     city?: string;
     state?: string;
     zip?: string;
-    filledPrescriptionMTD?: number;
+    rxFilledMtd?: number;
     createdDate: Date;
     updatedDate?: Date;
 }
 
-export interface PharmacyState {
-    loading: boolean;
-    pharmacyList: Array<Pharmacy>;
-    error: string | undefined;
-  }
+
+

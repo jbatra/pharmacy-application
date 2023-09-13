@@ -1,65 +1,96 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../stateStore/hooks";
-import { pharmacySelector  } from "../../../stateStore/Pharmacy/PharmacySlice";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { PageNotFound } from "../../../layouts/PageNotFound/PageNotFound";
-import { Pharmacy } from "../../../stateStore/Pharmacy/Pharmacy";
-import { fetchPharmacyList } from "../../../services/pharmacyService";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
+import {  pharmacySelection } from "../../../stores/Pharmacy/PharmacySlice";
+import { DataGrid, GridColDef,GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid';
+import { Pharmacy } from "../../../stores/Pharmacy/Pharmacy";
+import {  fetchPharmacyList, updatePharmacy } from "../../../services/pharmacyService";
+import _ from 'lodash';
+import { LinearProgress } from '@mui/material';
+import { PaginationModel } from "../../../stores/PaginationModel";
 import './PharmacyList.scss';
 
-function PharmacyList () {
 
-  const selectedPharmacyList= useAppSelector(pharmacySelector);
-  const dispatch = useAppDispatch()
+function PharmacyList () {
+  const [paginationModel, setPaginationModel] = useState<PaginationModel>({page:0,pageSize:5})
+
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(fetchPharmacyList())
-  }, [])
+    dispatch(fetchPharmacyList({page:paginationModel.page,pageSize:paginationModel.pageSize}));
+  
+  }, [paginationModel])
+
+  const { pharmacyList, loading, error, totalCount} = useAppSelector((state) => {
+    return state.pharmacyReducer;
+  });
 
 const columns: GridColDef[] = [
-    { field: 'name',    headerName: 'Name',    width: 200, editable: true, flex: 2 },
-    { field: 'address', headerName: 'Address', width: 150, editable: true, flex: 1.5 },
-    { field: 'city',    headerName: 'City',    width: 150, editable: true, flex: 1 },
-    { field: 'state',   headerName: 'State',   width: 70,  editable: true, flex: 1 },
-    { field: 'zip',     headerName: 'Zip',  width: 70, editable: true, flex: 0.5, type: 'number' },
-    { field: 'filledPrescriptionMTD', headerName: 'RX Filled(MTD)', type: 'number', editable: true, flex: 0.5 }
+    { field: 'name', renderHeader: () => (<strong>{'Name'}</strong>),    width: 125, editable: true, flex: 1},
+    { field: 'address',renderHeader: () => (<strong>{'Address'}</strong>), width: 125, editable: true, flex: 1 },
+    { field: 'city',renderHeader: () => (<strong>{'City'}</strong>), width: 75, editable: true, flex: 0.75 },
+    { field: 'state',renderHeader: () => (<strong>{'State'}</strong>), width: 70,  editable: true, flex: 0.5 },
+    { field: 'zip', renderHeader: () => (<strong>{'Zip'}</strong>), width: 70, editable: true, flex: 0.75, },
+    { field: 'rxFilledMtd',renderHeader: () => (<strong>{'Rx Filled'}</strong>), type: 'number', width: 80, editable: true, flex: 0.5 }
 ];
 
     const handleProcessRowUpdate = (updatedPharmacy: Pharmacy, originalPharmacy: Pharmacy) => {
-            // add code to update pharmacy
-
-      return updatedPharmacy;
+            console.log(updatedPharmacy);
+        if( !_.isEqual(updatedPharmacy, originalPharmacy) )
+          dispatch(updatePharmacy(updatedPharmacy));
+    return updatedPharmacy;
     }
 
-  return (
-    <div>
-    <div className="ph-list">               
+    const handlePharmacySelectionChange = (selectedPharmacy: GridRowSelectionModel) => {
+      const pharmacy = pharmacyList.find(pharmacy => pharmacy.pharmacyId === selectedPharmacy[0]) as Pharmacy;
+          dispatch(pharmacySelection(pharmacy));           
+     }
+
+     const handlePaginationModelChange = (changePageModel: GridPaginationModel) => {        
+      if (paginationModel.pageSize !== changePageModel.pageSize) 
+      {
+        changePageModel.page = 0;
+      }
+
+      dispatch(pharmacySelection({} as Pharmacy)); 
+      setPaginationModel(changePageModel); 
       
-      <div>
-      {selectedPharmacyList.loading && <div>Loading...</div>}
-      {selectedPharmacyList.error && <div><PageNotFound/></div>}   
-      {/* Error: {selectedPharmacyList.error} */}
-      {!selectedPharmacyList.loading && selectedPharmacyList.pharmacyList.length ? (       
-        <div>
-        <h2>List of Pharmacies</h2>
-        <div style={{ height: 350, width: '100%' }}>
-          <DataGrid
-            getRowId={(row) => row.pharmacyId}
-            rows={selectedPharmacyList.pharmacyList}
-            columns={columns}
-            editMode="row"
-            processRowUpdate={handleProcessRowUpdate}
-            //onProcessRowUpdateError={onProcessRowUpdateError}
-          />            
-      </div>
-      </div>
-      ) : null}
-  
-       </div>       
-    </div>  
+  };
+
+  return (         
+    <div> 
       
-    </div>
-   
+        {loading ? <div style={{gridArea: 'pharmacy'}}><LinearProgress /></div>: error ? <h2>{error}</h2>:
+                    
+            <div style={{ width: '100%'}}>
+              <DataGrid                
+                getRowId={(row) => row.pharmacyId}
+                rows={pharmacyList}
+                columns={columns}
+                editMode="row"
+                processRowUpdate={handleProcessRowUpdate}
+                onRowSelectionModelChange={handlePharmacySelectionChange}
+                rowCount={totalCount} 
+                rowHeight={30}    
+                columnHeaderHeight={40}  
+                pagination
+                paginationMode="server"
+                hideFooterSelectedRowCount={true}
+                paginationModel={paginationModel}                               
+                onPaginationModelChange={handlePaginationModelChange}                
+                pageSizeOptions={[5, 10, 15]}  
+                sx={{                                            
+                  m: 2,                        
+                  border: 3,
+                  borderColor: 'primary',
+                  background:'#aedaff'
+                  
+                  }}
+              />            
+          </div>
+        
+        }  
+      </div>   
   )
 }
 
 export default PharmacyList;
+

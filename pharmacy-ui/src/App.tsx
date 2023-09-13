@@ -1,23 +1,20 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Header from './layouts/Header/Header';
-import Footer from './layouts/Footer/Footer';
-import { PageNotFound } from './layouts/PageNotFound/PageNotFound';
+import { PageNotFound } from './views/PageNotFound/PageNotFound';
 import './App.scss'
-import Home from './layouts/Home/Home';
+import Layout from './layouts/Layout';
+import Home from './views/Home/Home';
 
 
 function App() {
   return (
     <div className='app'>      
-      <Router>
-        <Header></Header>   
+      <Router>   
           <div className='container'>     
             <Routes>
-              <Route path="/" element={<Home/>}/>             
-              <Route path="error" element={<PageNotFound/>}/>
+              <Route path="/" element={<Layout someComponent={<Home/>}/>}/>
+              <Route path="error" element={<Layout someComponent={<PageNotFound/>}/>}/>
             </Routes> 
-          </div>               
-        <Footer></Footer>
+          </div> 
       </Router>      
     </div>
   )

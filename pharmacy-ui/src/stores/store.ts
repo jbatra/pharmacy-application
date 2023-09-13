@@ -4,7 +4,7 @@ import pharmacyReducer  from './Pharmacy/PharmacySlice';
 
 export const store = configureStore({
   reducer: {
-    pharmacyReducer
+    pharmacyReducer,
   },
 });
 export type AppDispatch = typeof store.dispatch;

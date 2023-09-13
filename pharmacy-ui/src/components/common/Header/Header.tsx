@@ -6,9 +6,10 @@ const Header = () => {
         <div className="header">
             <Link to="/">
             <div className='logo'>Pharmacy Management System</div>
-            </Link>           
+            </Link>
+            <div className='rightSideDiv'>Environment: {JSON.stringify(import.meta.env.MODE)}</div>        
         </div>
-        )
+        )        
 };
 
 export default Header;
