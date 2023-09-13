@@ -24,8 +24,7 @@ CREATE   PROCEDURE [dbo].[sp_PharmacistDrugMTDReport]
  IF @PharmacyId IS NULL
 	BEGIN
 		SElECT ph.Name AS Pharmacy,ph.PharmacyId, CONCAT(p.FirstName, ' ', p.LastName) AS Pharmacist, p.PharmacistId , d.Name AS [DrugName],
-		SUM(ps.UnitCount) AS UnitCount,
-		SUM(ps.UnitCount*ps.UnitPrice) AS [SaleAmount]
+		SUM(ps.UnitCount) AS UnitCount, SUM(SaleAmount)	AS [SaleAmount
 		--INTO [#TempTblPrimaryRx]
 		FROM Pharmacist p
 		Join Pharmacy_Pharmacist pp ON p.PharmacistId = pp.PharmacistId AND pp.EndDate IS NULL
@@ -39,8 +38,7 @@ CREATE   PROCEDURE [dbo].[sp_PharmacistDrugMTDReport]
 ELSE
 	BEGIN
 		SElECT ph.Name AS Pharmacy,ph.PharmacyId, CONCAT(p.FirstName, ' ', p.LastName) AS Pharmacist, p.PharmacistId , d.Name AS [DrugName],
-		SUM(ps.UnitCount) AS UnitCount,
-		SUM(ps.UnitCount*ps.UnitPrice) AS [SaleAmount]
+		SUM(ps.UnitCount) AS UnitCount, SUM(SaleAmount) AS [SaleAmount]
 		--INTO [#TempTblPrimaryRx]
 		FROM Pharmacist p
 		Join Pharmacy_Pharmacist pp ON p.PharmacistId = pp.PharmacistId 
