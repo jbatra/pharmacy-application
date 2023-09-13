@@ -31,39 +31,64 @@ namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PharmacyId"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("City")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<int?>("RxFilledMtd")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Zip")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PharmacyId")
                         .HasName("PK_dbo.Pharmacy");
 
                     b.ToTable("Pharmacy");
+                });
+
+            modelBuilder.Entity("Nuvem.PharmacyManagement.PharmacyServices.Models.PharmacistMTDReport", b =>
+                {
+                    b.Property<string>("DrugName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pharmacist")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PharmacistId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Pharmacy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SaleAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UnitCount")
+                        .HasColumnType("int");
+
+                    b.ToTable("PharmacistMTDReportList");
                 });
 #pragma warning restore 612, 618
         }
