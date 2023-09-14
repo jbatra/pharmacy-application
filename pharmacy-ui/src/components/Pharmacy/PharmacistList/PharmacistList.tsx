@@ -36,7 +36,7 @@ const PharmacistList = () => {
       setpharmacistPaginationModel(changePageModel);
     }
 
-      if(!selectedPharmacy || !selectedPharmacy.name || !pharmacistCount || pharmacistCount <= 0 )
+      if(!selectedPharmacy || !selectedPharmacy.name )//|| !pharmacistCount || pharmacistCount <= 0 )
             return null;
 
     console.log(pharmacistCount);
@@ -51,12 +51,13 @@ const PharmacistList = () => {
   return (    
     <div>   
     {pharmacistloading ? <div style={{gridArea: 'pharmacist'}}><LinearProgress /></div> 
-    : (!pharmacistloading && pharmacistList.length === 0) ? <div style={{gridArea: 'pharmacist'}}>No Pharmacist</div>
+    : (!pharmacistloading && !pharmacistList || pharmacistCount === 0) ? <div style={{gridArea: 'pharmacist'}}>No Pharmacist</div>
     : pharmacistError ? <h2>{pharmacistError}</h2>     
     : 
     <div>      
     <div>PharmacistList</div>
-        <DataGrid
+
+        <DataGrid style={{ height: 240}}
           columns={columns}
           rows={pharmacistList}
           getRowId={()=> generateRandom()}          

@@ -60,7 +60,7 @@ const columns: GridColDef[] = [
       
         {loading ? <div style={{gridArea: 'pharmacy'}}><LinearProgress /></div>: error ? <h2>{error}</h2>:
                     
-            <div style={{ width: '100%'}}>
+            <div style={{ maxWidth: 900, height: 240, marginLeft:100 }}>
               <DataGrid                
                 getRowId={(row) => row.pharmacyId}
                 rows={pharmacyList}
