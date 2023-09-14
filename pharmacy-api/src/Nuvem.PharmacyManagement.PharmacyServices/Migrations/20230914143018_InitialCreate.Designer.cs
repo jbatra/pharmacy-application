@@ -12,7 +12,7 @@ using Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext;
 namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    [Migration("20230913141321_InitialCreate")]
+    [Migration("20230914143018_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,27 +34,27 @@ namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PharmacyId"));
 
                     b.Property<string>("Address")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("City")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<int?>("RxFilledMtd")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");

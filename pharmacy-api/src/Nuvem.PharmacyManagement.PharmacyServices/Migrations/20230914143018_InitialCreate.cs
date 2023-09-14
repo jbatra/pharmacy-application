@@ -33,10 +33,10 @@ namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
                 {
                     PharmacyId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    City = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    State = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    City = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    State = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Zip = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RxFilledMtd = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
