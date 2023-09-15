@@ -56,39 +56,28 @@ const columns: GridColDef[] = [
   };
 
   return (         
-    <div> 
-      
+        <>
         {loading ? <div style={{gridArea: 'pharmacy'}}><LinearProgress /></div>: error ? <h2>{error}</h2>:
                     
-            <div style={{ maxWidth: 900, height: 240, marginLeft:100 }}>
-              <DataGrid                
-                getRowId={(row) => row.pharmacyId}
-                rows={pharmacyList}
-                columns={columns}
-                editMode="row"
-                processRowUpdate={handleProcessRowUpdate}
-                onRowSelectionModelChange={handlePharmacySelectionChange}
-                rowCount={totalCount} 
-                rowHeight={30}    
-                columnHeaderHeight={40}  
-                pagination
-                paginationMode="server"
-                hideFooterSelectedRowCount={true}
-                paginationModel={paginationModel}                               
-                onPaginationModelChange={handlePaginationModelChange}                
-                pageSizeOptions={[5, 10, 15]}  
-                sx={{                                            
-                  m: 2,                        
-                  border: 3,
-                  borderColor: 'primary',
-                  background:'#aedaff'
-                  
-                  }}
-              />            
-          </div>
-        
-        }  
-      </div>   
+            <DataGrid                
+              getRowId={(row) => row.pharmacyId}
+              rows={pharmacyList}
+              columns={columns}
+              editMode="row"
+              processRowUpdate={handleProcessRowUpdate}
+              onRowSelectionModelChange={handlePharmacySelectionChange}
+              rowCount={totalCount} 
+              rowHeight={30}    
+              columnHeaderHeight={40}  
+              pagination
+              paginationMode="server"
+              hideFooterSelectedRowCount={true}
+              paginationModel={paginationModel}                               
+              onPaginationModelChange={handlePaginationModelChange}                
+              pageSizeOptions={[5, 10, 15]}  
+            />            
+        } 
+        </> 
   )
 }
 
