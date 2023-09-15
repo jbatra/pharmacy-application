@@ -8,7 +8,7 @@ const Layout = ({someComponent}: {someComponent: React.ReactNode}) =>  //(props:
   return (
     <div className='layout'>
         <Header/>
-          <div className='container'>{someComponent}</div>
+          {someComponent}
         <Footer/>
     </div>
   )

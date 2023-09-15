@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <div className="header">
             <Link to="/">
-            <div className='logo'>Pharmacy Management System</div>
+            <div className='logo'>Pharmacy Management System®</div>
             </Link>
             <div className='rightSideDiv'>Environment: {JSON.stringify(import.meta.env.MODE)}</div>        
         </div>
