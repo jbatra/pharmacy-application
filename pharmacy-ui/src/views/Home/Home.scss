@@ -2,19 +2,17 @@
  
   .wrapper {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: minmax(275px, 350px) minmax(300px, 500px);// repeat(2, 1fr);
     grid-template-areas: 'pharmacy pharmacy'                       
                           'pharmacyCard pharmacist'; 
-    grid-gap: 2rem;         
-    max-width: 1280px;   
-    min-width: 900px;          
+    grid-gap: 2rem;                
     place-self: center;   
     margin: 3rem;
   }
   
   .box1 {
     grid-area: pharmacy;
-    max-width: 900px;
+    // max-width: 900px;
 
     .MuiDataGrid-root {
       background: #aedaff;       

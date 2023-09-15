@@ -14,8 +14,8 @@ const PharmacyCard = () => {
 
   return (    
   <div className='.card-top'>
-    <Card sx={{ minWidth: 275, color: "#000080", background:"#aedaff" }} >
-      <CardHeader title={selectedPharmacy.name} sx={{ fontFamily: 'sans-serif;' }}/>    
+    <Card sx={{ color: "#000080", background:"#aedaff" }} >
+      <CardHeader title={selectedPharmacy.name}/>    
       <CardContent>
         <Typography variant="subtitle1" gutterBottom>
         {selectedPharmacy.address}
