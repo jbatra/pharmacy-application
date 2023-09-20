@@ -14,10 +14,8 @@ BEGIN
 
 SELECT TOP 3 ph.Name AS Pharmacy, CONCAT(p.FirstName, ' ', p.LastName) AS Pharmacist , SUM(ps.UnitCount) AS Quantity, SUM(ps.SaleAmount) AS SaleAmount
 FROM [dbo].[PharmacySales] ps
-JOIN Pharmacy_Pharmacist pp ON pp.Pharmacy_PharmacistId = ps.Pharmacy_PharmacistId 
-			AND pp.EndDate IS NULL
-JOIN Pharmacist p ON p.PharmacistId = pp.PharmacistId
-JOIN Pharmacy ph ON ph.PharmacyId = pp.PharmacyId AND ph.PharmacyId = @PharmacyId
+JOIN Pharmacist p ON p.PharmacistId = ps.PharmacistId
+JOIN Pharmacy ph ON ph.PharmacyId = ps.PharmacyId AND ph.PharmacyId = @PharmacyId
 Group By ph.Name, p.FirstName, p.LastName
 ORDER BY ph.Name, SaleAmount ASC
 

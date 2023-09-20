@@ -271,27 +271,33 @@ GO
 USE [PharmacyManagementStore]
 GO
 
-ALTER TABLE [dbo].[PharmacySales] DROP CONSTRAINT [FK_PharmacySales_Pharmacy_Pharmacist]
+ALTER TABLE [dbo].[PharmacySales] DROP CONSTRAINT [FK_PharmacySales_Pharmacy]
+GO
+
+ALTER TABLE [dbo].[PharmacySales] DROP CONSTRAINT [FK_PharmacySales_Pharmacist]
 GO
 
 ALTER TABLE [dbo].[PharmacySales] DROP CONSTRAINT [FK_PharmacySales_Drug]
+GO
+
+ALTER TABLE [dbo].[PharmacySales] DROP CONSTRAINT [DF__PharmacyS__Pharm__3E1D39E1]
 GO
 
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PharmacySales]') AND type in (N'U'))
 DROP TABLE [dbo].[PharmacySales]
 GO
 
-
 CREATE TABLE [dbo].[PharmacySales](
 	[PharmacySalesId] [int] IDENTITY(1,1) NOT NULL,
-	[Pharmacy_PharmacistId] [int] NOT NULL,
-	[DrugSoldId] [int] NOT NULL,
+	[PharmacyId] [int] NOT NULL,
+	[PharmacistId] [int] NOT NULL,
+	[DrugId] [int] NOT NULL,
 	[UnitCount] [int] NOT NULL,
 	[UnitPrice] [money] NOT NULL,
-	[DateOfSale] [date] NOT NULL,
+	[SaleAmount]  AS ([UnitCount]*[UnitPrice]),
+	[SaleDate] [date] NOT NULL,
 	[CreatedDate] [date] NOT NULL,
 	[UpdatedDate] [date] NULL,
-	[SaleAmount]  AS ([UnitCount]*[UnitPrice]),
  CONSTRAINT [PK_PharmacySales] PRIMARY KEY CLUSTERED 
 (
 	[PharmacySalesId] ASC
@@ -299,16 +305,28 @@ CREATE TABLE [dbo].[PharmacySales](
 ) ON [PRIMARY]
 GO
 
-ALTER TABLE [dbo].[PharmacySales]  WITH CHECK ADD  CONSTRAINT [FK_PharmacySales_Drug] FOREIGN KEY([DrugSoldId])
+ALTER TABLE [dbo].[PharmacySales] ADD  DEFAULT ((1)) FOR [PharmacistId]
+GO
+
+ALTER TABLE [dbo].[PharmacySales]  WITH CHECK ADD  CONSTRAINT [FK_PharmacySales_Drug] FOREIGN KEY([DrugId])
 REFERENCES [dbo].[Drug] ([DrugId])
 GO
 
 ALTER TABLE [dbo].[PharmacySales] CHECK CONSTRAINT [FK_PharmacySales_Drug]
 GO
 
-ALTER TABLE [dbo].[PharmacySales]  WITH CHECK ADD  CONSTRAINT [FK_PharmacySales_Pharmacy_Pharmacist] FOREIGN KEY([Pharmacy_PharmacistId])
-REFERENCES [dbo].[Pharmacy_Pharmacist] ([Pharmacy_PharmacistId])
+ALTER TABLE [dbo].[PharmacySales]  WITH CHECK ADD  CONSTRAINT [FK_PharmacySales_Pharmacist] FOREIGN KEY([PharmacistId])
+REFERENCES [dbo].[Pharmacist] ([PharmacistId])
 GO
 
-ALTER TABLE [dbo].[PharmacySales] CHECK CONSTRAINT [FK_PharmacySales_Pharmacy_Pharmacist]
+ALTER TABLE [dbo].[PharmacySales] CHECK CONSTRAINT [FK_PharmacySales_Pharmacist]
 GO
+
+ALTER TABLE [dbo].[PharmacySales]  WITH CHECK ADD  CONSTRAINT [FK_PharmacySales_Pharmacy] FOREIGN KEY([PharmacyId])
+REFERENCES [dbo].[Pharmacy] ([PharmacyId])
+GO
+
+ALTER TABLE [dbo].[PharmacySales] CHECK CONSTRAINT [FK_PharmacySales_Pharmacy]
+GO
+
+

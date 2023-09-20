@@ -19,16 +19,16 @@ public partial class PharmacyDbContext : DbContext, IPharmacyDbContext
 
     public DbContext Instance => this;
 
-    public string? connString { get; set;}
-   
+    public string? connString { get; set; }
+
     public Task<int> SaveChangesAsync()
     {
         return base.SaveChangesAsync();
     }
-   
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if(!optionsBuilder.IsConfigured)
+        if (!optionsBuilder.IsConfigured)
         {
             optionsBuilder.UseSqlServer(connString);
         }
@@ -39,8 +39,11 @@ public partial class PharmacyDbContext : DbContext, IPharmacyDbContext
         {
             entity.HasKey(e => e.PharmacyId).HasName("PK_dbo.Pharmacy");
         });
-        modelBuilder.Entity<PharmacistMTDReport>(entity => 
-        entity.HasNoKey());  
+        modelBuilder.Entity<PharmacistMTDReport>(entity =>
+        {
+            entity.HasNoKey()
+            .Property(s => s.SaleAmount).HasColumnType("decimal(18,2)");
+        });
 
         OnModelCreatingPartial(modelBuilder);
     }

@@ -26,13 +26,11 @@ CREATE   PROCEDURE [dbo].[sp_PharmacistDrugMTDReport]
 		SElECT ph.Name AS Pharmacy,ph.PharmacyId, CONCAT(p.FirstName, ' ', p.LastName) AS Pharmacist, p.PharmacistId , d.Name AS [DrugName],
 		SUM(ps.UnitCount) AS UnitCount,
 		SUM(ps.UnitCount*ps.UnitPrice) AS [SaleAmount]
-		--INTO [#TempTblPrimaryRx]
 		FROM Pharmacist p
-		Join Pharmacy_Pharmacist pp ON p.PharmacistId = pp.PharmacistId AND pp.EndDate IS NULL
-		Join Pharmacy ph ON pp.PharmacyId = ph.PharmacyId
-		JOIN PharmacySales ps ON ps.Pharmacy_PharmacistId = pp.Pharmacy_PharmacistId  
-		AND MONTH(ps.DateOfSale) = @Month AND YEAR(ps.DateOfSale) = @Year
-		JOIN Drug d ON d.DrugId = ps.DrugSoldId
+		JOIN PharmacySales ps ON ps.PharmacistId = p.PharmacistId  
+		Join Pharmacy ph ON ph.PharmacyId = ps.PharmacyId
+		AND MONTH(ps.SaleDate) = @Month AND YEAR(ps.SaleDate) = @Year
+		JOIN Drug d ON d.DrugId = ps.DrugId
 		Group BY ph.PharmacyId, ph.Name, p.FirstName,p.LastName, p.PharmacistId , d.Name
 		Order BY ph.Name,p.FirstName,p.LastName,d.Name
 	END
@@ -41,14 +39,11 @@ ELSE
 		SElECT ph.Name AS Pharmacy,ph.PharmacyId, CONCAT(p.FirstName, ' ', p.LastName) AS Pharmacist, p.PharmacistId , d.Name AS [DrugName],
 		SUM(ps.UnitCount) AS UnitCount,
 		SUM(ps.UnitCount*ps.UnitPrice) AS [SaleAmount]
-		--INTO [#TempTblPrimaryRx]
 		FROM Pharmacist p
-		Join Pharmacy_Pharmacist pp ON p.PharmacistId = pp.PharmacistId 
-						AND pp.EndDate IS NULL AND pp.PharmacyId = @PharmacyId
-		Join Pharmacy ph ON pp.PharmacyId = ph.PharmacyId 
-		JOIN PharmacySales ps ON ps.Pharmacy_PharmacistId = pp.Pharmacy_PharmacistId  
-		AND MONTH(ps.DateOfSale) = @Month AND YEAR(ps.DateOfSale) = @Year
-		JOIN Drug d ON d.DrugId = ps.DrugSoldId
+		JOIN PharmacySales ps ON ps.PharmacistId = p.PharmacistId  AND ps.PharmacyId = @PharmacyId
+		Join Pharmacy ph ON ph.PharmacyId = ps.PharmacyId 
+		AND MONTH(ps.SaleDate) = @Month AND YEAR(ps.SaleDate) = @Year
+		JOIN Drug d ON d.DrugId = ps.DrugId
 		Group BY ph.PharmacyId, ph.Name, p.FirstName,p.LastName, p.PharmacistId , d.Name
 		Order BY ph.Name,p.FirstName,p.LastName,d.Name
 	END

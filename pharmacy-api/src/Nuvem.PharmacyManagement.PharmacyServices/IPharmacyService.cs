@@ -4,9 +4,9 @@ using Nuvem.PharmacyManagement.PharmacyServices.Models;
 namespace Nuvem.PharmacyManagement.PharmacyServices;
 public interface IPharmacyService
 {
-    Task<List<Pharmacy>> GetPharmacieListAsync();
-    Task<Pharmacy?> GetPharmacyByIdAsync(int id);
+    Task<List<Pharmacy>?> GetPharmacieListAsync(int? id = null);
     Task<Pharmacy?> UpdatePharmacyAsync(Pharmacy pharmacy);
     Task<PharmacyDisplayResult<Pharmacy>?> PaginatedPharmacyListAsync(ParameterCollection param);
-    Task<PharmacistDisplayResult<PharmacistMTDReport>?> GetPharmacistListByPharmacyIdAsync(int pharmacyId,ParameterCollection parameters);
+    Task<PharmacistDisplayResult<PharmacistMTDReport>?> GetPharmacistListByPharmacyIdAsync(int pharmacyId, ParameterCollection parameters);
+
 }
