@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../stores/hooks";
 import {  pharmacySelection } from "../../../stores/Pharmacy/PharmacySlice";
-import { DataGrid, GridColDef,GridPaginationModel, GridRowSelectionModel } from '@mui/x-data-grid';
+import { DataGrid, GridColDef,GridPaginationModel, GridRowSelectionModel, useGridApiRef } from '@mui/x-data-grid';
 import { Pharmacy } from "../../../stores/Pharmacy/Pharmacy";
 import {  fetchPharmacyList, updatePharmacy } from "../../../services/pharmacyService";
 import _ from 'lodash';
@@ -19,17 +19,27 @@ function PharmacyList () {
   
   }, [paginationModel])
 
-  const { pharmacyList, loading, error, totalCount} = useAppSelector((state) => {
+  const { pharmacyList, loading, error, totalCount, selectedPharmacy} = useAppSelector((state) => {
     return state.pharmacyReducer;
   });
 
+   const apiRef = useGridApiRef();
+  if(selectedPharmacy && selectedPharmacy.pharmacyId > 0 )
+  {
+    console.log("setting select row");
+    setTimeout(() => {
+      apiRef.current.selectRow(selectedPharmacy.pharmacyId, true,false);
+    });   
+
+  }
+
 const columns: GridColDef[] = [
-    { field: 'name', renderHeader: () => (<strong>{'Name'}</strong>),    width: 125, editable: true, flex: 1},
-    { field: 'address',renderHeader: () => (<strong>{'Address'}</strong>), width: 125, editable: true, flex: 1 },
-    { field: 'city',renderHeader: () => (<strong>{'City'}</strong>), width: 75, editable: true, flex: 0.75 },
-    { field: 'state',renderHeader: () => (<strong>{'State'}</strong>), width: 70,  editable: true, flex: 0.5 },
-    { field: 'zip', renderHeader: () => (<strong>{'Zip'}</strong>), width: 70, editable: true, flex: 0.75, },
-    { field: 'rxFilledMtd',renderHeader: () => (<strong>{'Rx Filled'}</strong>), type: 'number', width: 80, editable: true, flex: 0.5 }
+    { field: 'name', headerName:'Pharmacy', headerClassName:'columnHeader', width: 125, editable: true, flex: 1},
+   // { field: 'address',renderHeader: () => (<strong>{'Address'}</strong>), width: 125, editable: true, flex: 1 },
+    { field: 'city', headerName:'City', headerClassName:'columnHeader', width: 75, editable: true, flex: 0.75 },
+    { field: 'state', headerName:'State', headerClassName:'columnHeader', width: 70,  editable: true, flex: 0.5 },
+   // { field: 'zip', renderHeader: () => (<strong>{'Zip'}</strong>), width: 70, editable: true, flex: 0.75, },
+    { field: 'rxFilledMtd', align:'center',headerName:'Rx Filled', headerClassName:'columnHeader', type: 'number', width: 80, editable: true, flex: 0.5 }
 ];
 
     const handleProcessRowUpdate = (updatedPharmacy: Pharmacy, originalPharmacy: Pharmacy) => {
@@ -60,17 +70,20 @@ const columns: GridColDef[] = [
       
         {loading ? <div style={{gridArea: 'pharmacy'}}><LinearProgress /></div>: error ? <h2>{error}</h2>:
                     
-            <div style={{ maxWidth: 900, height: 240, marginLeft:100 }}>
-              <DataGrid                
-                getRowId={(row) => row.pharmacyId}
+            // <div >  style={{ maxWidth: 470, height: 248 }}
+            <div style={{ height: 244.5 }}>
+              <DataGrid
+               apiRef={apiRef}               
+                getRowId={(row) => row.pharmacyId}                
                 rows={pharmacyList}
                 columns={columns}
-                editMode="row"
+                editMode="row"                
                 processRowUpdate={handleProcessRowUpdate}
                 onRowSelectionModelChange={handlePharmacySelectionChange}
                 rowCount={totalCount} 
                 rowHeight={30}    
-                columnHeaderHeight={40}  
+                columnHeaderHeight={40}
+                keepNonExistentRowsSelected={true}               
                 pagination
                 paginationMode="server"
                 hideFooterSelectedRowCount={true}
@@ -79,10 +92,11 @@ const columns: GridColDef[] = [
                 pageSizeOptions={[5, 10, 15]}  
                 sx={{                                            
                   m: 2,                        
-                  border: 3,
-                  borderColor: 'primary',
-                  background:'#aedaff'
-                  
+                  //border: 3,
+                  //borderColor: 'primary',
+                  background:'#2b95d5',
+                  color:"white",
+                  boxShadow:3
                   }}
               />            
           </div>

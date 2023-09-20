@@ -39,13 +39,13 @@ const PharmacistList = () => {
       if(!selectedPharmacy || !selectedPharmacy.name )//|| !pharmacistCount || pharmacistCount <= 0 )
             return null;
 
-    console.log(pharmacistCount);
+    //console.log(pharmacistCount);
     
     const columns: GridColDef[] = [
-        { field: 'pharmacist', renderHeader: () => (<strong>{'Pharmacist'}</strong>),    width: 75,  flex: 1},
-        { field: 'drugName',renderHeader: () => (<strong>{'Drug Name'}</strong>), width: 50,  flex: 0.75 },
-        { field: 'unitCount',renderHeader: () => (<strong>{'Unit Count'}</strong>), type: 'number',width: 70,   flex: 0.5 },
-        { field: 'saleAmount', renderHeader: () => (<strong>{'Sales Amount'}</strong>), type: 'number', width: 70, flex: 0.75, },
+        { field: 'pharmacist', headerName:'Pharmacist', headerClassName:'columnHeader', width: 75,  flex: 1},
+        { field: 'drugName', headerName:'Drug', headerClassName:'columnHeader', width: 50,  flex: 0.75 },
+        { field: 'unitCount', headerName:'Quantity', headerClassName:'columnHeader', align:'center', type: 'number',width: 70,   flex: 0.5 },
+        { field: 'saleAmount', headerName:'Drug Sales($)', headerClassName:'columnHeader', align:'center', type: 'number', width: 70, flex: 0.75, },
        ];
        
   return (    
@@ -55,9 +55,9 @@ const PharmacistList = () => {
     : pharmacistError ? <h2>{pharmacistError}</h2>     
     : 
     <div>      
-    <div>PharmacistList</div>
+    <div style={{textAlign:"center", fontWeight :"bold", color: "#245f89", fontSize: "20px"}}>Pharmacist current month Sales</div>
 
-        <DataGrid style={{ height: 240}}
+        <DataGrid style={{ height: 244.4}}
           columns={columns}
           rows={pharmacistList}
           getRowId={()=> generateRandom()}          
@@ -71,11 +71,10 @@ const PharmacistList = () => {
                 onPaginationModelChange={handlePaginationModelChange}                
                 pageSizeOptions={[5, 10, 15]} 
           sx={{                                            
-            m: 2,                        
-            border: 3,
-            borderColor: 'primary',
-            background:'#aedaff'
-            
+            m: 2,    
+            background:'#2b95d5',
+            color:"white",
+            boxShadow:3            
           }}
         />
         

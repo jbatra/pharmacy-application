@@ -1,37 +1,50 @@
 @import "../../assets/colors.scss";
  
+body {
+  background: rgb(43,149,213);
+  background: linear-gradient(194deg, rgba(43,149,213,0.9809173669467787) 48%, rgba(43,124,154,1) 68%, rgba(58,155,232,0.9332983193277311) 100%);
+}
+
   .wrapper {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-areas: 'pharmacy'                       
+    grid-template-columns: [first] 550px [line2] 500px [line3] ;// repeat(2, 1fr);
+    grid-template-areas: 'pharmacy pharmacyDrugDemand'                       
                           'pharmacyCard pharmacist'; 
-    //grid-auto-rows: 100px;
   }
   
   .box1 {
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 2;
     grid-row-start: 1;
     grid-row-end: 2;
+    
   }
   
   .box2 {
     grid-column-start: 1;
     grid-row-start: 2;
-    grid-row-end: 4;
+    grid-row-end: 3;
     margin-top: 38px;
     margin-left: 75px;
     margin-right: 75PX;
   }
   .box3 {
     grid-column-start: 2;
+    ////grid-column-end: 4;
     grid-row-start: 2;
-    grid-row-end: 4;
+    grid-row-end: 3;
+  }
+
+  .box4 {
+    grid-column-start: 2;
+   //grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
   }
   
-  * {
-    box-sizing: border-box;
-  }
+  // * {
+  //   box-sizing: border-box;
+  // }
   
   .wrapper {
     border-radius: 5px;
