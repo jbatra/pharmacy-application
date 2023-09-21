@@ -36,10 +36,8 @@ const PharmacistList = () => {
       setpharmacistPaginationModel(changePageModel);
     }
 
-      if(!selectedPharmacy || !selectedPharmacy.name )//|| !pharmacistCount || pharmacistCount <= 0 )
+      if(!selectedPharmacy || !selectedPharmacy.name )
             return null;
-
-    //console.log(pharmacistCount);
     
     const columns: GridColDef[] = [
         { field: 'pharmacist', headerName:'Pharmacist', headerClassName:'columnHeader', width: 75,  flex: 1},
@@ -51,36 +49,38 @@ const PharmacistList = () => {
   return (    
     <div>   
     {pharmacistloading ? <div style={{gridArea: 'pharmacist'}}><LinearProgress /></div> 
-    : (!pharmacistloading && !pharmacistList || pharmacistCount === 0) ? <div style={{gridArea: 'pharmacist'}}>No Pharmacist</div>
+    : (!pharmacistloading && !pharmacistList || pharmacistCount === 0) ? <div style={{gridArea: 'pharmacist'}}>No Pharmacist Report</div>
     : pharmacistError ? <h2>{pharmacistError}</h2>     
     : 
-    <div>      
-    <div style={{textAlign:"center", fontWeight :"bold", color: "#245f89", fontSize: "20px"}}>Pharmacist current month Sales</div>
+    <>      
+        <div style={{textAlign:"center", fontWeight :"bold", color: "#245f89", fontSize: "20px"}}>Pharmacist current month Sales</div>
 
-        <DataGrid style={{ height: 244.4}}
-          columns={columns}
-          rows={pharmacistList}
-          getRowId={()=> generateRandom()}          
-          rowCount={pharmacistCount}
-          rowHeight={30}    
-          columnHeaderHeight={40}  
-          pagination
-                paginationMode="server"
-                hideFooterSelectedRowCount={true}
-                paginationModel={pharmacistPaginationModel}                               
-                onPaginationModelChange={handlePaginationModelChange}                
-                pageSizeOptions={[5, 10, 15]} 
-          sx={{                                            
-            m: 2,    
-            background:'#2b95d5',
-            color:"white",
-            boxShadow:3            
-          }}
-        />
-        
-    </div>
+            <DataGrid 
+              columns={columns}
+              rows={pharmacistList}
+              getRowId={()=> generateRandom()}          
+              rowCount={pharmacistCount}
+              rowHeight={30}    
+              columnHeaderHeight={40}  
+              pagination
+                    paginationMode="server"
+                    hideFooterSelectedRowCount={true}
+                    paginationModel={pharmacistPaginationModel}                               
+                    onPaginationModelChange={handlePaginationModelChange}                
+                    pageSizeOptions={[5, 10, 15]} 
+              sx={{                                            
+                m: 2,    
+                background:'#2b95d5',
+                color:"#FAF9F6", 
+                height: 200,
+                width:530                           
+              }}
+            />
+            
+        </>
         }
         </div>
+        //style={{ height: 200, width:530}}
   )
 }
 

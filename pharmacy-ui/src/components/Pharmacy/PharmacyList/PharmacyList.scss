@@ -1,40 +1,14 @@
 @import "../../../assets/colors.scss";
 
-// * {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-//   font-family: "Open Sans", sans-serif;
-// }
-
 
 a {
   text-decoration: none;
 }
 
-// body {
-//   background: #225dd4;
-// }
-
-// body {
-//   background: rgb(24,55,125);
-// background: linear-gradient(209deg, rgba(24,55,125,1) 38%, rgba(24,55,125,1) 41%, rgb(11, 12, 14) 75%, rgba(34,93,212,1) 98%);
-// //   background: rgb(24,55,125);
-// // background: linear-gradient(209deg, rgba(24,55,125,1) 42%, rgba(34,93,212,1) 61%, rgba(26,113,198,1) 80%, rgba(18,135,184,0.9865196078431373) 100%);
-// //   background: rgb(24,55,125);
-// // background: linear-gradient(209deg, rgba(24,55,125,1) 42%, rgba(18,135,184,0.11257002801120453) 46%, rgba(25,94,188,1) 60%, rgba(34,93,212,1) 78%, rgba(34,93,212,1) 92%);
-//   //background: linear-gradient(#e66465, #9198e5);
-//   //background: linear-gradient(0deg, rgb(152, 149, 209) 0%, rgba(61,107,205,1) 21%,rgba(61,107,205,1) 81% rgba(77,145,203,1) 100%);    
-// }
-
 .Mui-selected {
   background-color: rgba(88, 89, 90, 0.367) !important;
   background: linear-gradient(0deg, rgb(152, 149, 209) 0%, rgba(61,107,205,1) 21%,rgba(61,107,205,1) 81% rgba(77,145,203,1) 100%);    
 }
-
-// .container {
-//   margin: 0px 40px;
-// }
 
 .columnHeader {
   font: bold;

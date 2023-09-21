@@ -5,7 +5,7 @@ export const Drug = () => {
 
     return (
         <div className="wrapper">
-            <div className="box1"><MostDemandedDrug/></div>
+            <div className="drug"><MostDemandedDrug/></div>
         </div>
 
     )

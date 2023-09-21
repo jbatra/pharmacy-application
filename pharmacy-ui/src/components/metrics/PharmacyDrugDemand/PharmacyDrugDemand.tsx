@@ -1,9 +1,8 @@
 import { useAppSelector, useAppDispatch } from "../../../stores/hooks";
 import {useEffect } from "react";
 import { GetTopFulfilledDrugsAtPharmacy } from '../../../services/metricsService';
-import Paper from '@mui/material/Paper';
 import { BarChart } from "@mui/x-charts";
-import { LinearProgress } from "@mui/material";
+import { Box, Container, LinearProgress } from "@mui/material";
 
 export const PharmacyDrugDemand = () => {
 
@@ -20,33 +19,31 @@ export const PharmacyDrugDemand = () => {
         }  
       }, [selectedPharmacy]);
 
-      if(!topDrugsFulfilled || topDrugsFulfilled.length === 0)
+      if(!selectedPharmacy.name)  
         return null;
     const mtdData = topDrugsFulfilled.map(s => s.quantitySold);
     const xLabels = topDrugsFulfilled.map(s=> s.drug);
 
     return (
-
     <>
         { topDrugsLoading ? <div style={{gridArea: 'pharmacyDrugDemand'}}><LinearProgress /></div> 
             : (!topDrugsLoading && !topDrugsFulfilled || topDrugsFulfilled.length === 0) ? <div style={{gridArea: 'pharmacyDrugDemand'}}>No Drug Report</div>
             : topDrugsError ? <h2>{topDrugsError}</h2>     
             : 
         
-            
-            <Paper style={{height:"300px"}}>
-              {/* <h> Drug Demand Chart</h2> */}
+            <Container maxWidth="sm">
+            <Box sx={{ bgcolor: '#cfe8fc', height:"257px", alignContent:"center" }} >
             <div style={{textAlign:"center", fontWeight :"bold", color: "#245f89", fontSize: "20px", textDecoration:"underline"}}>
-              Top Drugs fufilled by {selectedPharmacy.name}</div>
-              <BarChart
-                      width={400}
-                      height={275}                
+               Top Drugs fufilled by {selectedPharmacy.name}</div>
+            <BarChart title="Test"
+                      width={500}
+                      height={260}                
                       series={[{ data: mtdData, id: 'uvId', color: "#02B2AF"}]}
                       xAxis={[{ data: xLabels, scaleType: 'band' }]}
+                      yAxis={[{ tickMinStep:100, tickMaxStep:300, tickSize:250, labelFontSize:5, fill:"red",tickFontSize:4}]}
               />
-            
-            </Paper>
-        
+              </Box>
+          </Container>
         } 
     </>
     )

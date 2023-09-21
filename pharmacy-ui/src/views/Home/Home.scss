@@ -7,44 +7,47 @@ body {
 
   .wrapper {
     display: grid;
-    grid-template-columns: [first] 550px [line2] 500px [line3] ;// repeat(2, 1fr);
+    grid-template-columns: [first] 600px [line2] 600px [line3] ;// repeat(2, 1fr);
+    grid-template-rows: [first] 32.8vh [line2] 31.5vh [line3] 18vh [line4];
     grid-template-areas: 'pharmacy pharmacyDrugDemand'                       
-                          'pharmacyCard pharmacist'; 
+                         '         pharmacist'
+                         '         pharmacyCard'; 
   }
   
-  .box1 {
+  .pharmacy {
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row-start: 1;
-    grid-row-end: 2;
-    
-  }
-  
-  .box2 {
-    grid-column-start: 1;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    margin-top: 38px;
-    margin-left: 75px;
-    margin-right: 75PX;
-  }
-  .box3 {
-    grid-column-start: 2;
-    ////grid-column-end: 4;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    grid-row-end: 4;    
   }
 
-  .box4 {
+  .pharmacyDrugDemand {
+      grid-column-start: 2;
+     //grid-column-end: 4;
+      grid-row-start: 1;
+      grid-row-end: 2;   
+      margin-top: 5px;  
+      margin-left: 15px;
+    }
+
+  .pharmacist {
     grid-column-start: 2;
-   //grid-column-end: 4;
-    grid-row-start: 1;
-    grid-row-end: 2;
+    //grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    margin-top: 8px;
+    margin-left: 27px;
   }
   
-  // * {
-  //   box-sizing: border-box;
-  // }
+  .pharmacyCard {
+    grid-column-start: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    margin-top: 18px;
+    margin-left: 110px;
+    margin-bottom: 10px;
+    // margin-right: 75PX;
+  }
   
   .wrapper {
     border-radius: 5px;
@@ -52,6 +55,6 @@ body {
   
   .wrapper > div {
     border-radius: 5px;
-    padding: 1em;
+    //padding: 1em;
   }
   

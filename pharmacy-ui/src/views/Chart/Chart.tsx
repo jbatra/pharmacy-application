@@ -7,7 +7,6 @@ export const Chart = () => {
 
         <div className="wrapper">
             <div className="box1"><PharmacySales/></div>
-            {/* <div className="box2"><MostDemandedDrug/></div> */}
         </div>
     )
 }

@@ -11,9 +11,7 @@ export const Layout = ({someComponent}: {someComponent: ReactNode}) => {
             <Header/>
             <div style={{ display: "flex", height: "83vh" }}>
                 <SidebarNav/>
-                <section>
-                    {someComponent}      
-                </section>
+                <section>{someComponent}</section>
             </div>
               <Footer/>
         </div>

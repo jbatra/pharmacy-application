@@ -1,22 +1,11 @@
 .wrapper {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-template-areas: 'sales drug'; 
+    grid-template-areas: 'drug'; 
   }
   
-  .box1 {
-    grid-column-start: 1;
-    //grid-column-end: 2;
-    grid-row-start: 1;
-    grid-row-end: 2;
+  .drug {  
     margin-top: 150px;
   }
   
-  .box2 {
-    grid-column-start: 2;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    // margin-top: 38px;
-    // margin-left: 75px;
-    // margin-right: 75PX;
-  }
+ 

@@ -58,8 +58,6 @@ const metricsSlice = createSlice({
             state.topDrugsFulfilled = [];
             state.topDrugsError = action.error.message;
         });
-
-
         
     }
 });
