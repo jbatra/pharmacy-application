@@ -22,7 +22,7 @@ public class PharmacyService : IPharmacyService
 
     public async Task<PharmacistDisplayResult<PharmacistMTDReport>?> GetPharmacistListByPharmacyIdAsync(int pharmacyId, ParameterCollection parameters)
     {
-        if (parameters.PageSize == 0) parameters.PageSize = 5;
+        if (parameters.PageSize == 0) parameters.PageSize = 20;
         PharmacistDisplayResult<PharmacistMTDReport> result = new();
         var pharmacistReport = await _dbContext.sp_PharmacistDrugMTDReport(pharmacyId);
 
@@ -39,7 +39,7 @@ public class PharmacyService : IPharmacyService
 
         return result;
     }
-    public async Task<List<Pharmacy>?> GetPharmacieListAsync(int? id = null)
+    public async Task<List<Pharmacy>?> GetPharmacyListAsync(int? id = null)
     {
         if (id is not null)
         {
@@ -83,7 +83,7 @@ public class PharmacyService : IPharmacyService
     {
         if (parameters.PageSize == 0) parameters.PageSize = 5;
         PharmacyDisplayResult<Pharmacy> result = new();
-        List<Pharmacy>? pharmacyList = await GetPharmacieListAsync();
+        List<Pharmacy>? pharmacyList = await GetPharmacyListAsync();
         if (pharmacyList is null)
         {
             return null;

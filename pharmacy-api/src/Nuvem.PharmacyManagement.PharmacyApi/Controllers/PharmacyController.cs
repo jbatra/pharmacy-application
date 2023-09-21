@@ -35,7 +35,7 @@ public class PharmacyController : ControllerBase
     public async Task<ActionResult> GetPharmacyList(int? id = null)
     {
         _logger.LogInformation("In GetPharmacyList action method!");
-        var pharmacyList = await _pharmacyService.GetPharmacieListAsync(id);
+        var pharmacyList = await _pharmacyService.GetPharmacyListAsync(id);
         if (pharmacyList is null)
         {
             throw new NotFoundException("Pharmacy(s) Not found!");
