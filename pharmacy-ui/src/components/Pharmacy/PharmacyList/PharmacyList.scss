@@ -1,33 +1,16 @@
 @import "../../../assets/colors.scss";
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
-}
+
 a {
   text-decoration: none;
 }
 
-body {
-  background: $primary-color;
-}
-
 .Mui-selected {
-  background-color: rgba(75, 230, 230, 0.367) !important;
+  background-color: rgba(88, 89, 90, 0.367) !important;
   background: linear-gradient(0deg, rgb(152, 149, 209) 0%, rgba(61,107,205,1) 21%,rgba(61,107,205,1) 81% rgba(77,145,203,1) 100%);    
 }
 
-.container {
-  margin: 0px 40px;
-}
-
-.ph-list {
-  margin: 20px 0px;
-  h2 {
-    color: $font-secondary;
-    margin-bottom: 10px;
-    font-weight: 400;
-  }
+.columnHeader {
+  font: bold;
+  background-color: rgba(5, 44, 68, 0.367) !important;
 }

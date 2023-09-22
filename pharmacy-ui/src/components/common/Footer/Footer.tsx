@@ -1,12 +1,15 @@
 import "./Footer.scss";
+import Toolbar from '@mui/material/Toolbar';
 
-const footer = () => {
-    return (
-        <div className='footer'>
-             <div>React App </div>
-             <div>-   ©2021, Jyoti B., Inc. or its affiliates</div>
-        </div>
-    )
-};
 
-export default footer;
+export default function Footer() {
+  return (   
+      
+          <Toolbar style={{ marginBottom:"0px", position:'static', backgroundColor:"#2b84ac", height: "4vh", color:'white', justifyContent:'center'}}>          
+           React App - © 2023, Jyoti B., Inc. or its affiliates                 
+        </Toolbar>
+      
+  );
+}
+
+

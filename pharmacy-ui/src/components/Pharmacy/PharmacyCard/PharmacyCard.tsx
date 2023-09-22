@@ -13,17 +13,14 @@ const PharmacyCard = () => {
       return null;
 
   return (    
-  <div className='.card-top'>
-    <Card sx={{ minWidth: 275, color: "#000080", background:"#aedaff" }} >
-      <CardHeader title={selectedPharmacy.name} sx={{ fontFamily: 'sans-serif;' }}/>    
+  <div className='card-top'>
+    <Card sx={{ width:"400px",height:"110px", textAlign:"center",  color: "#FAF9F6", background:"#2b95d5" }} >
+      <CardHeader title={selectedPharmacy.name} sx={{ height:"5px", textAlign:"center", fontFamily: 'sans-serif;' }}/>    
       <CardContent>
-        <Typography variant="subtitle1" gutterBottom>
-        {selectedPharmacy.address}
-        </Typography>
-        <Typography variant="subtitle1" component="div">
-        {selectedPharmacy.city}, {selectedPharmacy.state} - {selectedPharmacy.zip}
-        </Typography>
-        <Typography variant="h6"> Rx Filled MTD : {selectedPharmacy.rxFilledMtd} 
+        <Typography variant="subtitle2" gutterBottom>
+        {selectedPharmacy.address}, {selectedPharmacy.city}, {selectedPharmacy.state} - {selectedPharmacy.zip}
+        </Typography>        
+        <Typography variant="subtitle1"> Rx Filled MTD : {selectedPharmacy.rxFilledMtd} 
         </Typography>
       </CardContent>
     </Card>

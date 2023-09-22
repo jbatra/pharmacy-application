@@ -10,19 +10,11 @@ a {
   text-decoration: none;
 }
 
-body {
-  background: $primary-color;
-}
-
 .container {
   margin: 0px 40px;
 }
 
-.ph-list {
-  margin: 20px 0px;
-  h2 {
-    color: $font-secondary;
-    margin-bottom: 10px;
-    font-weight: 400;
-  }
+.columnHeader {
+  font: bold;
+  background-color: rgba(5, 44, 68, 0.367) !important;
 }

@@ -18,7 +18,7 @@ export const fetchPharmacistReport =  createAsyncThunk(
         method: 'POST',
         url: `/api/pharmacy/${params.id}/Pharmacist`,
         headers: {"Content-Type": "application/json"}, 
-        data: JSON.stringify(params.pagingParams)  
+        data: params.pagingParams
       });
       return response.data;
   } 
@@ -35,12 +35,12 @@ export const fetchPharmacistReport =  createAsyncThunk(
     'fetchPharmacyList',
     async (pagingParams: PaginationModel, {rejectWithValue}) => {
       try {    
-        console.log(pagingParams);
+        //console.log(pagingParams);
         const response = await axios({
           method: 'POST',
           url: `/api/pharmacy`,
           headers: {"Content-Type": "application/json"}, 
-          data: JSON.stringify(pagingParams)  
+          data: pagingParams
         });
         return response.data;
     } 
@@ -62,7 +62,7 @@ export const fetchPharmacistReport =  createAsyncThunk(
             method: 'put',
             url: `/api/pharmacy`,
             headers: {"Content-Type": "application/json"},          
-            data: JSON.stringify(Pharmacy)
+            data: Pharmacy
           });
           return response.data;
       } 

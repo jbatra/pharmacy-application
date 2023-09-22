@@ -1,23 +1,14 @@
-@import '../assets/colors.scss';
+// @import '../assets/colors.scss';
 
-#root {
-    max-width: 1280px;
-    height: auto;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  body {
-    background: $primary-color;
-  }
-  .container {
-    margin: 3px 40px;
-  }
-
-  .layout {
-    text-align: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+h1 {
+  color: #165a72;
+  margin: 50px auto;
+  font-size: 40px;
+}
+.menu1 {
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+h2 {
+  color: #165a72;
+}

@@ -1,14 +1,10 @@
 @import "../../../assets//colors.scss";
 
 .footer {
-  margin-top: auto;
-  background: $secondary-color;
-  height: 50px;
-  //height: 72px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $font-primary;
-  //padding: 25px 0;
-  flex-direction: coulmn;
+    position:'static';
+    background-color:"#9a9a9a";
+    height: "4vh";
+    color: $font-primary;
+    justify-content:'center';
 }
+

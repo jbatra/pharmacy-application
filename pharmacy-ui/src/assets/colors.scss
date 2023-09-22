@@ -1,4 +1,13 @@
-$primary-color: #6AB6F5; // #5CA1DA;  //#4F92C9;  //#ECEEF3;  //#B0C4DE;  // #cad1e1;  //#c6c8c2;  ////#737479;   //
-$secondary-color: #1a242f;  //#1F8EEA;//
-$font-primary: #ffffff;
+$primary-color: #4ca6ef; 
+$secondary-color: #1a242f;  
+$font-primary: #FAF9F6;
 $font-secondary:#000080;
+$menu-color: #245f89;
+
+:export {
+    primary-color: $primary-color;
+    secondary-color: $secondary-color;  
+    font-primary: $font-primary;
+    font-secondary: $font-secondary;
+    menucolor: $menu-color;
+}
