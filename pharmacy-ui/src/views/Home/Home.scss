@@ -8,7 +8,7 @@ body {
   .wrapper {
     display: grid;
     grid-template-columns: [first] 600px [line2] 600px [line3] ;// repeat(2, 1fr);
-    grid-template-rows: [first] 32.8vh [line2] 31.5vh [line3] 18vh [line4];
+    grid-template-rows: [first] 27.5vh [line2] 36vh [line3] 18vh [line4];
     grid-template-areas: 'pharmacy pharmacyDrugDemand'                       
                          '         pharmacist'
                          '         pharmacyCard'; 

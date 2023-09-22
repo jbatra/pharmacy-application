@@ -32,12 +32,12 @@ export const PharmacyDrugDemand = () => {
             : 
         
             <Container maxWidth="sm">
-            <Box sx={{ bgcolor: '#cfe8fc', height:"257px", alignContent:"center" }} >
+            <Box sx={{ bgcolor: '#cfe8fc', height:"217px", alignContent:"center" }} >
             <div style={{textAlign:"center", fontWeight :"bold", color: "#245f89", fontSize: "20px", textDecoration:"underline"}}>
                Top Drugs fufilled by {selectedPharmacy.name}</div>
             <BarChart title="Test"
                       width={500}
-                      height={260}                
+                      height={220}                
                       series={[{ data: mtdData, id: 'uvId', color: "#02B2AF"}]}
                       xAxis={[{ data: xLabels, scaleType: 'band' }]}
                       yAxis={[{ tickMinStep:100, tickMaxStep:300, tickSize:250, labelFontSize:5, fill:"red",tickFontSize:4}]}

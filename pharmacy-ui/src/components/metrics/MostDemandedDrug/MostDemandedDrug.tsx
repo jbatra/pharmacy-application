@@ -44,7 +44,7 @@ export const MostDemandedDrug = () => {
                     columnHeaderHeight={40}  
                     pagination
                     hideFooterSelectedRowCount={true}                
-                    pageSizeOptions={[5, 10, 15]} 
+                    pageSizeOptions={[5, 10, 15, 100]} 
                     sx={{                                            
                       m: 2,    
                       background:'#2b95d5',

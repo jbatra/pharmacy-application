@@ -22,6 +22,8 @@ export const PharmacySales = () => {
 
     const month = pharmacySales[0].saleMonth;
     const year = pharmacySales[0].saleYear.toString();
+    console.log("in sales componrnt");
+    //console.log(error);
 
     return (
         
