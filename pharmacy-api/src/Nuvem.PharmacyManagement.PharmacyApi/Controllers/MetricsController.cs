@@ -20,7 +20,7 @@ public class MetricsController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet("/PharmacySales")]
+    [HttpGet("PharmacySales")]
     [SwaggerOperation("Get Pharmacy Report")]
     [SwaggerResponse((int)HttpStatusCode.OK)]
     [SwaggerResponse((int)HttpStatusCode.NotFound)]
@@ -36,7 +36,7 @@ public class MetricsController : ControllerBase
     }
 
 
-    [HttpGet("/MostDemandedDrug")]
+    [HttpGet("MostDemandedDrug")]
     [SwaggerOperation("Get Most Demanded Drug")]
     [SwaggerResponse((int)HttpStatusCode.OK)]
     [SwaggerResponse((int)HttpStatusCode.NotFound)]
@@ -55,8 +55,8 @@ public class MetricsController : ControllerBase
 
 
 
-    [HttpGet("/GetTop5DrugsAtPharmacy/{id}")]
-    [SwaggerOperation("Get Most Demanded Drug")]
+    [HttpGet("GetTopDrugsAtPharmacy/{id}")]
+    [SwaggerOperation("Get Top Fulfilled Drug")]
     [SwaggerResponse((int)HttpStatusCode.OK)]
     [SwaggerResponse((int)HttpStatusCode.NotFound)]
     public async Task<ActionResult> GetTop5DrugsAtPharmacy(int id)

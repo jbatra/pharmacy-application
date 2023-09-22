@@ -81,7 +81,7 @@ public class PharmacyService : IPharmacyService
 
     public async Task<PharmacyDisplayResult<Pharmacy>?> PaginatedPharmacyListAsync(ParameterCollection parameters)
     {
-        if (parameters.PageSize == 0) parameters.PageSize = 5;
+        if (parameters.PageSize == 0) parameters.PageSize = 20;
         PharmacyDisplayResult<Pharmacy> result = new();
         List<Pharmacy>? pharmacyList = await GetPharmacyListAsync();
         if (pharmacyList is null)
