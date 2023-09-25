@@ -17,7 +17,12 @@ function PharmacyList() {
     useEffect(() => {
       dispatch(fetchPharmacyList({ page: paginationModel.page, pageSize: paginationModel.pageSize }));
 
-    }, [paginationModel])
+    }, [paginationModel]);
+
+    // Test For scoped/Singleton DBContext
+    // useEffect(() => {
+    //   dispatch(fetchPharmacyList({ page: paginationModel.page, pageSize: paginationModel.pageSize }));
+    // });
 
     const { pharmacyList, loading, error, totalCount, selectedPharmacy } = useAppSelector((state) => {
       return state.pharmacyReducer;
