@@ -73,7 +73,7 @@ const PharmacistList = () => {
                 background:'#2b95d5',
                 color:"#FAF9F6", 
                 height: 235,
-                width:530                           
+                width:536                          
               }}
             />
             

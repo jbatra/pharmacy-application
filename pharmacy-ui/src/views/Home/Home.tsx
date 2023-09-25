@@ -12,8 +12,9 @@ const Home = () => {
     <div className="wrapper">
     <div className="pharmacy"><PharmacyList/></div>
     <div className="pharmacyCard"><PharmacyCard/></div>
-    <div className="pharmacist"><PharmacistList/></div>
     <div className='pharmacyDrugDemand'><PharmacyDrugDemand/></div>
+    <div className="pharmacist"><PharmacistList/></div>
+    
   </div>
   )
 }
