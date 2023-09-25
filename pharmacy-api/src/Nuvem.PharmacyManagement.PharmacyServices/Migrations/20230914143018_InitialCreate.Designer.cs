@@ -12,7 +12,7 @@ using Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext;
 namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
 {
     [DbContext(typeof(PharmacyDbContext))]
-    [Migration("20230904021231_InitialCreate")]
+    [Migration("20230914143018_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -60,13 +60,38 @@ namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Zip")
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PharmacyId")
                         .HasName("PK_dbo.Pharmacy");
 
                     b.ToTable("Pharmacy");
+                });
+
+            modelBuilder.Entity("Nuvem.PharmacyManagement.PharmacyServices.Models.PharmacistMTDReport", b =>
+                {
+                    b.Property<string>("DrugName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pharmacist")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PharmacistId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Pharmacy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PharmacyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("SaleAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UnitCount")
+                        .HasColumnType("int");
+
+                    b.ToTable("PharmacistMTDReportList");
                 });
 #pragma warning restore 612, 618
         }

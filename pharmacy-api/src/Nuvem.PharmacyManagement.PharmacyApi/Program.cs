@@ -9,19 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(options  => 
+builder.Services.AddControllers(options =>
 {
     options.Filters.Add(new ProducesAttribute("application/json"));
     options.Filters.Add(new ConsumesAttribute("application/json"));
 });
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContextPool<IPharmacyDbContext,PharmacyDbContext>(options =>
+builder.Services.AddDbContextPool<IPharmacyDbContext, PharmacyDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("EFConnectionString"),
         ef => ef.MigrationsAssembly("Nuvem.PharmacyManagement.PharmacyServices")));
 
 builder.Services.AddSwaggerGen(e => e.EnableAnnotations());
 builder.Services.AddTransient<IPharmacyService, PharmacyService>();
+builder.Services.AddTransient<IMetricsService, MetricsService>();
 
 AppSettingsConfiguraion appConfig = new();
 builder.Configuration.GetSection("ConnectionStrings").Bind(appConfig);
@@ -32,10 +33,10 @@ builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
                 {
-                    if(allowUrls is not null)
+                    if (allowUrls is not null)
                     {
-                    policy.WithOrigins(allowUrls)
-                        .WithMethods("GET", "POST", "PUT");
+                        policy.WithOrigins(allowUrls)
+                            .WithMethods("GET", "POST", "PUT");
                     }
                 });
             });

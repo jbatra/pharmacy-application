@@ -12,6 +12,22 @@ namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "PharmacistMTDReportList",
+                columns: table => new
+                {
+                    PharmacyId = table.Column<int>(type: "int", nullable: false),
+                    Pharmacy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PharmacistId = table.Column<int>(type: "int", nullable: false),
+                    Pharmacist = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DrugName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnitCount = table.Column<int>(type: "int", nullable: false),
+                    SaleAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pharmacy",
                 columns: table => new
                 {
@@ -21,7 +37,7 @@ namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
                     Address = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     City = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     State = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Zip = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
+                    Zip = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RxFilledMtd = table.Column<int>(type: "int", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -35,6 +51,9 @@ namespace Nuvem.PharmacyManagement.PharmacyServices.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "PharmacistMTDReportList");
+
             migrationBuilder.DropTable(
                 name: "Pharmacy");
         }
