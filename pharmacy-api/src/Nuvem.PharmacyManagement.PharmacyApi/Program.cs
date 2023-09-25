@@ -16,6 +16,21 @@ builder.Services.AddControllers(options =>
 });
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 builder.Services.AddSwaggerGen();
+
+
+// //Test: Register as Scoped lifetime...
+// DbContext is not thread-safe. Do not share contexts between threads. 
+// https://learn.microsoft.com/en-us/ef/core/dbcontext-configuration/
+// builder.Services.AddDbContext<IPharmacyDbContext, PharmacyDbContext>(options =>
+//                     options.UseSqlServer(builder.Configuration.GetConnectionString("EFConnectionString"),
+//                     ef => ef.MigrationsAssembly("Nuvem.PharmacyManagement.PharmacyServices")));
+
+
+// Register as Singleton Lifetime....Good for performance. AS each context instance does set up 
+// various internal services and objects necessary for performing its duties,
+//  and the overhead of continuously doing so may be significant in high-performance scenarios.
+//https://learn.microsoft.com/en-us/ef/core/performance/advanced-performance-topics?tabs=with-di%2Cexpression-api-with-constant#dbcontext-pooling
+
 builder.Services.AddDbContextPool<IPharmacyDbContext, PharmacyDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("EFConnectionString"),
         ef => ef.MigrationsAssembly("Nuvem.PharmacyManagement.PharmacyServices")));

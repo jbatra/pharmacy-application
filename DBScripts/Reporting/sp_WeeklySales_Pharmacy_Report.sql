@@ -18,15 +18,13 @@ CREATE   PROCEDURE [dbo].[sp_WeeklySales_Pharmacy_Report]
  AS
 
   BEGIN
-	 WITH Weekly_CTE
-	 AS (
-		SELECT ps.PharmacyId, p.Name AS [Pharmacy], YEAR(saledate) AS [Year], DATEPART(WEEK, SaleDate) As [Week], SUM([SaleAmount]) AS SaleAmount
-			FROM [PharmacySales] ps
-			JOIN Pharmacy p ON p.PharmacyId = ps.PharmacyId
-			GROUP BY ps.PharmacyId, p.Name, YEAR(SaleDate), DATEPART(WEEK, SaleDate)
-	 )
-	 SELECT * INTO #TEMPWEEKLY FROM Weekly_CTE
-	 if @PharmacyId IS NULL
+	
+	SELECT ps.PharmacyId, p.Name AS [Pharmacy], YEAR(saledate) AS [Year], DATEPART(WEEK, SaleDate) As [Week], SUM([SaleAmount]) AS SaleAmount
+	INTO #TEMPWEEKLY
+	FROM [PharmacySales] ps
+	JOIN Pharmacy p ON p.PharmacyId = ps.PharmacyId
+	GROUP BY ps.PharmacyId, p.Name, YEAR(SaleDate), DATEPART(WEEK, SaleDate)
+	 IF @PharmacyId IS NULL
 		 BEGIN
 			SELECT * FROM #TEMPWEEKLY
 		 END
