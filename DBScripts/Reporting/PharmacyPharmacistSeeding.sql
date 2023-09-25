@@ -18,13 +18,3 @@ INSERT INTO [dbo].[Pharmacy_Pharmacist]
 		   
 GO
 
-
-PharmacistId	PharmacyId
-1	1
-1	2
-1	3
-2	1
-2	4
-3	5
-4	4
-4	5
