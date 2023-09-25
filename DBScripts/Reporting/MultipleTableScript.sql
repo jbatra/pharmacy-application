@@ -52,16 +52,22 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pharm
 DROP TABLE [dbo].[Pharmacist]
 GO
 
+
 CREATE TABLE [dbo].[Pharmacist](
 	[PharmacistId] [int] IDENTITY(1,1) NOT NULL,
 	[FirstName] [nvarchar](200) NOT NULL,
 	[LastName] [varchar](50) NOT NULL,
 	[Age] [int] NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
-	[UpdatedDate] [datetime] NULL,	
- CONSTRAINT [PK_Pharmacist] PRIMARY KEY CLUSTERED ( 	[PharmacistId] ASC )
- ) ON [PRIMARY]
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK_Pharmacist] PRIMARY KEY CLUSTERED 
+(
+	[PharmacistId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
+
+
 
 USE [PharmacyManagementStore]
 GO
@@ -76,19 +82,20 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Pharm
 DROP TABLE [dbo].[Pharmacy_Pharmacist]
 GO
 
+
 CREATE TABLE [dbo].[Pharmacy_Pharmacist](
 	[Pharmacy_PharmacistId] [int] IDENTITY(1,1) NOT NULL,
 	[PharmacyId] [int] NOT NULL,
-	[PharmacistId] [int] NOT NULL,	
+	[PharmacistId] [int] NOT NULL,
 	[StartDate] [datetime] NOT NULL,
 	[EndDate] [datetime] NULL,
 	[CreatedDate] [datetime] NOT NULL,
 	[UpdatedDate] [datetime] NULL,
-	
  CONSTRAINT [PK_Pharmacy_Pharmacist] PRIMARY KEY CLUSTERED 
 (
 	[Pharmacy_PharmacistId] ASC
-)) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 ALTER TABLE [dbo].[Pharmacy_Pharmacist]  WITH CHECK ADD  CONSTRAINT [FK_Pharmacy_Pharmacist_Pharmacist] FOREIGN KEY([PharmacistId])
@@ -104,6 +111,8 @@ GO
 
 ALTER TABLE [dbo].[Pharmacy_Pharmacist] CHECK CONSTRAINT [FK_Pharmacy_Pharmacist_Pharmacy]
 GO
+
+
 
 USE [PharmacyManagementStore]
 GO
@@ -290,14 +299,14 @@ GO
 CREATE TABLE [dbo].[PharmacySales](
 	[PharmacySalesId] [int] IDENTITY(1,1) NOT NULL,
 	[PharmacyId] [int] NOT NULL,
-	[PharmacistId] [int] NOT NULL,
 	[DrugId] [int] NOT NULL,
 	[UnitCount] [int] NOT NULL,
 	[UnitPrice] [money] NOT NULL,
-	[SaleAmount]  AS ([UnitCount]*[UnitPrice]),
 	[SaleDate] [date] NOT NULL,
 	[CreatedDate] [date] NOT NULL,
 	[UpdatedDate] [date] NULL,
+	[SaleAmount]  AS ([UnitCount]*[UnitPrice]),
+	[PharmacistId] [int] NOT NULL,
  CONSTRAINT [PK_PharmacySales] PRIMARY KEY CLUSTERED 
 (
 	[PharmacySalesId] ASC
@@ -328,5 +337,7 @@ GO
 
 ALTER TABLE [dbo].[PharmacySales] CHECK CONSTRAINT [FK_PharmacySales_Pharmacy]
 GO
+
+
 
 

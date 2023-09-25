@@ -1,4 +1,5 @@
 using System.Data;
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Nuvem.PharmacyManagement.PharmacyServices.DatabaseContext;
